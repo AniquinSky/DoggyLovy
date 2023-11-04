@@ -19,13 +19,13 @@
   <header>
     <nav>
       <div class="container__header">
-        <div class="logo">
-            <a href="#">
-                <img src = "{{ url_for('static', filename='img/FOTO3png.jpg')}}">
-            </a>
-        </div>
-  
         <div class="menu">
+          <div class="logo">
+            <a href="#">
+                <img src = "{{ url_for('static', filename='img/logo.png')}}">
+            </a>
+          </div>
+
             <nav>
                 <ul>
                     <li><a href="{{ url_for('inicio.index') }}">Inicio</a></li>  
