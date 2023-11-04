@@ -1,28 +1,24 @@
 {% extends 'base.html' %}
-
-{% block header %}
+<!--{% block header %}
   <h1>{% block title %}{% endblock %}</h1>
   {% if g.user %}
     <a class="action" href="{{ url_for('inicio.create') }}">New</a>
   {% endif %}
-{% endblock %}
+{% endblock %}-->
 
 {% block content %}
-  {% for post in posts %}
-    <article class="post">
-      <header>
-        <div>
-          <h1>{{ post['title'] }}</h1>
-          <div class="about">by {{ post['username'] }} on {{ post['created'].strftime('%Y-%m-%d') }}</div>
-        </div>
-        {% if g.user['id'] == post['author_id'] %}
-          <a class="action" href="{{ url_for('inicio.update', id=post['id']) }}">Edit</a>
-        {% endif %}
-      </header>
-      <p class="body">{{ post['body'] }}</p>
-    </article>
-    {% if not loop.last %}
-      <hr>
-    {% endif %}
-  {% endfor %}
+  <div class="container__cover  div__offset">
+    <div class="cover">
+        <section class="text__cover">
+            <h1>Encuentra el amor canino a traves de nuestros rastros digitas</h1>
+            <p>En nuestra página de DoggyLovy, te proporcionamos la oportunidad de encontrar la pareja perfecta para tu querida mascota. Nuestro sitio web te permite filtrar según la raza, tamaño y ubicación, asegurándote de que encuentres perros compatibles que vivan cerca de ti.</p>
+            <a href="{{ url_for('auth.register') }}" class="btn__text-cover btn__text" >Registrarse</a>
+            
+        </section>
+
+        <section class="image__cover">
+          <img src = "{{ url_for('static', filename='img/portada2.jpg')}}">
+        </section>
+    </div>
+  </div>
 {% endblock %}
