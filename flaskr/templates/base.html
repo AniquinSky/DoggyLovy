@@ -39,7 +39,7 @@
                 </ul>
             </nav>
             {% if g.user %}
-              <span>{{ g.user['username'] }}</span>
+              <span>{{ g.user[0] }}</span>
               <a href="{{ url_for('auth.logout') }}" class="btn__quote">Salir</a>       
             {% else %} 
               <a href="{{ url_for('auth.login') }}" class="btn__quote" >Iniciar Sesion</a>

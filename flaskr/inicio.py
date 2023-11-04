@@ -4,19 +4,21 @@ from flask import (
 from werkzeug.exceptions import abort
 
 from flaskr.auth import login_required
-from flaskr.db import get_db
+import flaskr.db as db
 
 bp = Blueprint('inicio', __name__)
 
 @bp.route('/')
 def index():
-    db = get_db()
-    posts = db.execute(
-        'SELECT p.id, title, body, created, author_id, username'
-        ' FROM post p JOIN user u ON p.author_id = u.id'
-        ' ORDER BY created DESC'
-    ).fetchall()
-    return render_template('site/index.html', posts=posts)
+    #connDB = db.get_db()
+    #cur = connDB.cursor()
+    #cur.execute( 'select * from usuario')
+    #posts = cur.fetchall()
+    #print(posts)
+    #connDB.commit()
+    #cur.close()
+    #db.close_db()
+    return render_template('site/index.html', posts="")
 
 @bp.route('/create', methods=('GET', 'POST'))
 @login_required
