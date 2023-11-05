@@ -14,7 +14,8 @@ def register():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        
+        correo = request.form['correo']
+
         error = None
 
         if not username:
@@ -27,8 +28,8 @@ def register():
             cur = connDB.cursor()
             try:
                 cur.execute(
-                    "INSERT INTO usuario (id_usuario, password) VALUES (%s, %s)",
-                    (username, generate_password_hash(password)),
+                    "INSERT INTO usuario (id_usuario, password, correo) VALUES (%s, %s, %s)",
+                    (username, generate_password_hash(password), correo),
                 )
                 connDB.commit()
             except connDB.IntegrityError:
@@ -36,7 +37,7 @@ def register():
             cur.close()
             db.close_db()
         else:
-            return redirect(url_for("auth.login"))
+            return redirect(url_for("index"))
 
         flash(error)
 
