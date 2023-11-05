@@ -1,20 +1,54 @@
 <!doctype html>
-<title>{% block title %}{% endblock %} - Flaskr</title>
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-<nav>
-  <h1>Flaskr</h1>
+<title>{% block title %}{% endblock %} DoggyLovy</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> 
+<!--<nav>
+  <h1>DoggyLovy</h1>
   <ul>
+    <li><a href="{{ url_for('inicio.index') }}">Inicio</a>
+
     {% if g.user %}
       <li><span>{{ g.user['username'] }}</span>
       <li><a href="{{ url_for('auth.logout') }}">Log Out</a>
     {% else %}
-      <li><a href="{{ url_for('auth.register') }}">Register</a>
       <li><a href="{{ url_for('auth.login') }}">Log In</a>
     {% endif %}
   </ul>
-</nav>
+</nav>-->
+
 <section class="content">
   <header>
+    <nav>
+      <div class="container__header">
+        <div class="menu">
+          <div class="logo">
+            <a href="#">
+                <img src = "{{ url_for('static', filename='img/logo.png')}}">
+            </a>
+          </div>
+
+            <nav>
+                <ul>
+                    <li><a href="{{ url_for('inicio.index') }}">Inicio</a></li>  
+                    {% if g.user %}
+                      
+                    {% else %}
+                      <li><a href="#">Contactos</a></li>
+                      <li><a href="#">Servicios</a></li>
+                      <li><a href="#">Sobre</a></li> 
+                    {% endif %}
+                </ul>
+            </nav>
+            {% if g.user %}
+              <span>{{ g.user[0] }}</span>
+              <a href="{{ url_for('auth.logout') }}" class="btn__quote">Salir</a>       
+            {% else %} 
+              <a href="{{ url_for('auth.login') }}" class="btn__quote" >Iniciar Sesion</a>
+            {% endif %}
+            
+        </div>
+  
+      </div>
+    </nav>
     {% block header %}{% endblock %}
   </header>
   {% for message in get_flashed_messages() %}

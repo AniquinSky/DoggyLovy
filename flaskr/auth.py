@@ -5,7 +5,7 @@ from flask import (
 )
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from flaskr.db import get_db
+import flaskr.db as db
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
@@ -14,7 +14,7 @@ def register():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        db = get_db()
+        
         error = None
 
         if not username:
@@ -23,16 +23,20 @@ def register():
             error = 'Password is required.'
 
         if error is None:
+            connDB = db.get_db()
+            cur = connDB.cursor()
             try:
-                db.execute(
-                    "INSERT INTO user (username, password) VALUES (?, ?)",
+                cur.execute(
+                    "INSERT INTO usuario (id_usuario, password) VALUES (%s, %s)",
                     (username, generate_password_hash(password)),
                 )
-                db.commit()
-            except db.IntegrityError:
+                connDB.commit()
+            except connDB.IntegrityError:
                 error = f"User {username} is already registered."
-            else:
-                return redirect(url_for("auth.login"))
+            cur.close()
+            db.close_db()
+        else:
+            return redirect(url_for("auth.login"))
 
         flash(error)
 
@@ -43,20 +47,24 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        db = get_db()
+        connDB = db.get_db()
+        cur = connDB.cursor()
         error = None
-        user = db.execute(
-            'SELECT * FROM user WHERE username = ?', (username,)
-        ).fetchone()
+        cur.execute(
+            'SELECT id_usuario, password FROM usuario WHERE id_usuario = %s', (username,)
+        )
+        user = cur.fetchone()
+        cur.close()
+        db.close_db()
 
         if user is None:
             error = 'Incorrect username.'
-        elif not check_password_hash(user['password'], password):
+        elif not check_password_hash(user[1], password):
             error = 'Incorrect password.'
 
         if error is None:
             session.clear()
-            session['user_id'] = user['id']
+            session['user_id'] = user[0]
             return redirect(url_for('index'))
 
         flash(error)
@@ -70,9 +78,12 @@ def load_logged_in_user():
     if user_id is None:
         g.user = None
     else:
-        g.user = get_db().execute(
-            'SELECT * FROM user WHERE id = ?', (user_id,)
-        ).fetchone()
+        connDB = db.get_db()
+        cur = connDB.cursor()
+        cur.execute(
+            'SELECT nom_usuario FROM usuario WHERE id_usuario = %s', (user_id,)
+        )
+        g.user = cur.fetchone()
 
 @bp.route('/logout')
 def logout():

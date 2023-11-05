@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+<!--{% block header %}
+  <h1>{% block title %}{% endblock %}</h1>
+  {% if g.user %}
+    <a class="action" href="{{ url_for('inicio.create') }}">New</a>
+  {% endif %}
+{% endblock %}-->
+
+{% block content %}
+  <div class="container__cover  div__offset">
+    <div class="cover">
+        <section class="text__cover">
+            <h1>Encuentra el amor canino a traves de nuestros rastros digitas</h1>
+            <p>En nuestra página de DoggyLovy, te proporcionamos la oportunidad de encontrar la pareja perfecta para tu querida mascota. Nuestro sitio web te permite filtrar según la raza, tamaño y ubicación, asegurándote de que encuentres perros compatibles que vivan cerca de ti.</p>
+            <a href="{{ url_for('auth.register') }}" class="btn__text-cover btn__text" >Registrarse</a>
+            
+        </section>
+
+        <section class="image__cover">
+          <img src = "{{ url_for('static', filename='img/portada2.jpg')}}">
+        </section>
+    </div>
+  </div>
+
+
+  <div class="container__trust  container__card-primary">
+    <div class="trust  card__primary">
+      <div class="text__trust  text__card-primary">
+          <p>GENERA CONFIANZA PRIMERO</p>
+          <h1>Conectando corazones caninos a travez de la confianza y la calidad de cada cruza</h1>
+      </div>
+      <div class="container__trust  container__box-cardPrimary">
+        <div class="card__trust  box__card-primary">
+          <img src = "{{ url_for('static', filename='img/controlU1.png')}}" alt="">       
+          <h2>Control de acceso de usuario</h2>
+          <p>Tu privacidad y seguridad son nuestra principal preocupación. En nuestro proceso de registro de usuarios, empleamos las últimas medidas de seguridad y encriptación para proteger tus datos personales. Puedes registrarte con total tranquilidad, sabiendo que tu información está resguardada y nunca será compartida sin tu consentimiento.</p>
+        </div>
+
+        <div class="card__trust  box__card-primary">
+          <img src = "{{ url_for('static', filename='img/actualizacionD1.png')}}" alt=""> 
+          <h2>Actualizacion continua de datos las mascota</h2>
+          <p> Nuestro sistema está diseñado para hacer que la actualización de los detalles de tu peludo amigo sea fácil y rápida. Además, tus datos personales y la información de tu mascota están en buenas manos: empleamos rigurosas medidas de seguridad para proteger toda la información.</p>
+        </div>
+
+        <div class="card__trust  box__card-primary">
+          <img src = "{{ url_for('static', filename='img/BloqueoC2.jpg')}}" alt="">
+          <h2>Bloqueo de cuentas maliciosas</h2>
+          <p>Tu seguridad en línea es nuestra principal prioridad. En nuestra plataforma, invertimos en tecnología avanzada para detectar y bloquear cuentas maliciosas de manera proactiva. Nuestro equipo de expertos en seguridad trabaja incansablemente para mantener un entorno seguro y protegido para todos nuestros usuarios.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container__about  div__offset">
+    <div class="about">
+        <div class="text__about"> 
+          <h1>"Aprendiendo, Creando, Innovando en la Web del Mañana"</h1>
+          <p>"En cada línea de código, en cada diseño creativo, y en cada idea compartida. Listos para inspirar, aprender. Estamos unidos por nuestra pasión por la innovación y el conocimiento, y juntos, estamos creando un espacio digital lleno de oportunidades. Con cada desafío que enfrentamos, crecemos y evolucionamos. ¡Acompáñanos en este emocionante viaje!"</p>
+        </div>
+        <div class="image__about">
+          <img src = "{{ url_for('static', filename='img/sobreN3.jpg')}}" alt="">
+          <img src = "{{ url_for('static', filename='img/sobreN4.jpg')}}" alt="">
+        </div>
+    </div>     
+  </div>
+
+  <div class="container__service   container__card-primary  div__offset">
+    <div class="service  card__primary">
+      <div class="text__service  text__card-primary">
+          <p>QUE HACEMOS</p>
+          <h1>Servicios que brinda nuestra pagina web para tus mascotas.</h1>
+      </div>
+        
+      <div class="container__service  container__box-cardPrimary">
+        <div class="card__service box__card-primary">
+          <img src = "{{ url_for('static', filename='img/match.png')}}" alt="">
+          <h2>MATCH</h2>
+          <p>Las mascotas entraran a un algoritmo para encontrar pareja compatible segun varios criterios, como lo son el peso, la raza y el tamaño.</p>
+        </div>
+
+        <div class="card__service box__card-primary">
+          <img src = "{{ url_for('static', filename='img/adopcion.png')}}" alt="">
+          <h2>ADOPCION DE MASCOTAS</h2>
+          <p>Puedes poner en adopcion una mascota y adoptar en vez de buscar un match. Solo tienes que ponerte en contacto por medio del chat con la persona.</p>
+        </div>
+
+        <div class="card__service box__card-primary">
+          <img src = "{{ url_for('static', filename='img/valoracion.png')}}" alt="">
+          <h2>VALORACION DE MASCOTAS</h2>
+          <p>Segun la experiencia de los usuarios con las mascotas de otros usuarios, estos podran otorgarte una valoracion para indicar la experiencia que tuvo.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <footer class="footer">
+    <div class="footer__container container">
+      <section class="footer__newsletter">
+        <h2 class="footer__title">Boletin de noticias</h2>
+        <form  class="footer__form">
+            <input type="email" class="footer__input">
+            <input type="submit" class="footer__cta" value="Registrarse">
+        </form>
+      </section>
+      <section class="footer__content">
+        <img src = "{{ url_for('static', filename='img/comunicar.png')}}" alt="">
+        <p class="footer__paragraph">Nos puedes contactar por los siguientes medios.</p>
+        <div class="footer__contact  footer__contact-email">
+          <img src = "{{ url_for('static', filename='img/email.png')}}" alt="">
+        </div>     
+      </section>
+    </div>
+  </footer>
+
+{% endblock %}
