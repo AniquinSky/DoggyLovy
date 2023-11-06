@@ -30,7 +30,7 @@
                 <ul>
                     <li><a href="{{ url_for('inicio.index') }}">Inicio</a></li>  
                     {% if g.user %}
-                      
+                     
                     {% else %}
                       <li><a href="#">Contactos</a></li>
                       <li><a href="#">Servicios</a></li>
@@ -38,7 +38,7 @@
                     {% endif %}
                 </ul>
             </nav>
-            {% if g.user %}
+            {% if g.user %}  
               <span>{{ g.user[0] }}</span>
               <a href="{{ url_for('auth.logout') }}" class="btn__quote">Salir</a>       
             {% else %} 
