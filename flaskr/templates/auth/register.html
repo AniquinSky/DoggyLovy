@@ -5,32 +5,92 @@
 {% endblock %}
 
 {% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='register.css') }}">
 <div class="container__cover  div__offset">
-  <div class="cover">
-    <section class="text__cover">
+  <div class="container">
+    <div class="form-container">
       <form method="post">
-
-        <label for="nombres">Nombres</label>
-        <input name="nombres" id="nombres" required>
-
-        <label for="nombres">Apellidos</label>
-        <input name="apellidos" id="apellidos" required>
-
-        <label for="username">Usuario</label>
-        <input name="username" id="username" required>
-        
-        <label for="password">Password</label>
-        <input type="password" name="password" id="password" required>
-
-        <label for="correo">Correo</label>
-        <input name="correo" id="correo" required>
-        
-        <input type="submit" value="Register">
-
-
-        
+        {% for message in get_flashed_messages() %}
+        <div class="flash">{{ message }}</div>
+        {% endfor %}
+        <p class="form-title">Registro de usuario</p>
+        <input
+          name="username"
+          id="username"
+          placeholder="Nombre de Usuario"
+          required
+          maxlength=20
+          oninvalid="this.setCustomValidity('Ingrese un nombre de usuario')"
+          oninput="this.setCustomValidity('')"
+        />
+        <input
+          name="personName"
+          id="personName"
+          placeholder="Nombre completo"
+          required
+          maxlength=255
+          oninvalid="this.setCustomValidity('Ingrese su nombre completo')"
+          oninput="this.setCustomValidity('')"
+        />
+        <label for="gender">Genero:</label>
+        <select name="gender" id="gender">
+          <option value="hombre">Hombre</option>
+          <option value="mujer">Mujer</option>
+        </select>
+        <input
+          type="email"
+          name="email"
+          id="email"
+          placeholder="Correo electronico"
+          required
+          maxlength=255
+          oninvalid="this.setCustomValidity('Ingrese un correo electronico valido')"
+          oninput="this.setCustomValidity('')"
+        />
+        <input
+          name="phoneNumber"
+          id="phoneNumber"
+          placeholder="Numero de telefono"
+          required
+          maxlength=10
+          oninvalid="this.setCustomValidity('Ingrese un numero de telefono valido')"
+          oninput="this.setCustomValidity('')"
+        />
+        <label for="birthDate">Fecha de nacimiento:</label>
+        <input
+          type="date"
+          name="birthDate"
+          id="birthDate"
+          min="1930-01-01"
+          max="2005-01-01"
+          required
+          oninvalid="this.setCustomValidity('Ingrese una fecha')"
+          oninput="this.setCustomValidity('')"
+        />
+        <input
+          type="password"
+          name="password"
+          id="password"
+          placeholder="Contrasena"
+          required
+          oninvalid="this.setCustomValidity('Ingrese una contrasena')"
+          oninput="this.setCustomValidity('')"
+        />
+        <input
+          type="password"
+          name="confirmPassword"
+          id="confirmPassword"
+          placeholder="Confirmar contrasena"
+          required
+          oninvalid="this.setCustomValidity('Ingrese la confirmacion de contrasena')"
+          oninput="this.setCustomValidity('')"
+        />
+        <button type="submit" class="submit-button">Registrarme</button>
       </form>           
-    </section>     
+      <button type="button" class="login-button" onclick="window.location.href = '{{ url_for('auth.login') }}' ; "/>
+        Ya tengo cuenta.
+      </button>
+    </div>
   </div>
 </div>
 {% endblock %}

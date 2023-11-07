@@ -13,33 +13,45 @@ bp = Blueprint('auth', __name__, url_prefix='/auth')
 def register():
     if request.method == 'POST':
         username = request.form['username']
+        personName = request.form['personName']
+        gender = request.form['gender']
+        email = request.form['email']
+        phoneNumber = request.form['phoneNumber']
+        birthDate = request.form['birthDate']
         password = request.form['password']
-        correo = request.form['correo']
-        nombres = request.form['nombres']
-        apellidos = request.form['apellidos']
-        nom_usuario = nombres + " " + apellidos;
+        confirmPassword = request.form['confirmPassword']
 
         error = None
 
         if not username:
-            error = 'Username is required.'
-        elif not password:
-            error = 'Password is required.'
+            error = 'Nombre de usuario es necesario.'
+        if not personName:
+            error = 'Nombre completo es necesario.'
+        if not email:
+            error = 'Correo es necesario.'
+        if not birthDate:
+            error = 'Una fecha de nacimiento es necesaria'
+        if not password:
+            error = 'Contrasena es necesaria.'
+        elif password != confirmPassword:
+            error = 'La contrasena y confirmacion de contrasena no coinciden.'
 
         if error is None:
             connDB = db.get_db()
             cur = connDB.cursor()
             try:
                 cur.execute(
-                    "INSERT INTO usuario (id_usuario, password, correo, nom_usuario) VALUES (%s, %s, %s, %s)",
-                    (username, generate_password_hash(password), correo, nom_usuario),
+                    "INSERT INTO usuario (id_usuario, nom_usuario, correo, password, telefono, fecha_nacimiento, genero) VALUES (%s, %s, %s, %s, %s, %s, %s)",
+                    (username, personName, email, generate_password_hash(password), phoneNumber, birthDate, gender),
                 )
                 connDB.commit()
             except connDB.IntegrityError:
-                error = f"User {username} is already registered."
+                error = f"El nombre de usuario {username} ya se encuentra ocupado."
+            except Exception as e:
+                print(e)
             cur.close()
             db.close_db()
-        else:
+            # Cambiar para que redirija al home page
             return redirect(url_for("index"))
 
         flash(error)
