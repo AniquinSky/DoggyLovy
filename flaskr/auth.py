@@ -67,16 +67,21 @@ def login():
         cur = connDB.cursor()
         error = None
         cur.execute(
-            'SELECT id_usuario, password FROM usuario WHERE id_usuario = %s', (username,)
+            "SELECT id_usuario, password FROM usuario WHERE id_usuario = %s",
+            (username,)
         )
         user = cur.fetchone()
         cur.close()
         db.close_db()
 
+        # Como medida de seguridad basica se muestra el mismo mensaje si el
+        # nombre de usuario o contrasena son incorrectos.
+        # Esto porque asi una persona con intenciones maliciosas no puede saber
+        # cual de los dos datos esta mal.
         if user is None:
-            error = 'Incorrect username.'
+            error = 'Nombre de usuario o contrasena incorrecto.'
         elif not check_password_hash(user[1], password):
-            error = 'Incorrect password.'
+            error = 'Nombre de usuario o contrasena incorrecto.'
 
         if error is None:
             session.clear()
