@@ -18,7 +18,10 @@ def index():
     #connDB.commit()
     #cur.close()
     #db.close_db()
-    return render_template('site/index.html', posts="")
+    if g.user:
+        return render_template('site/home.html', posts="")
+    else:
+        return render_template('site/index.html', posts="")
 
 @bp.route('/create', methods=('GET', 'POST'))
 @login_required
