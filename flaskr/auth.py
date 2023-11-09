@@ -49,6 +49,7 @@ def register():
                 error = f"El nombre de usuario {username} ya se encuentra ocupado."
             except Exception as e:
                 print(e)
+                error = "Ocurrio un error inesperado. Intentelo mas tarde."
             cur.close()
             db.close_db()
             # Cambiar para que redirija al home page
