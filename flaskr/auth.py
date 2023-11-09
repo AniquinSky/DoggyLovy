@@ -1,4 +1,6 @@
 import functools
+import smtplib
+import yagmail
 
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
@@ -45,6 +47,7 @@ def register():
                     (username, personName, email, generate_password_hash(password), phoneNumber, birthDate, gender),
                 )
                 connDB.commit()
+                enviar_correo(email, username)
             except connDB.IntegrityError:
                 error = f"El nombre de usuario {username} ya se encuentra ocupado."
             except Exception as e:
@@ -120,3 +123,23 @@ def login_required(view):
         return view(**kwargs)
 
     return wrapped_view
+
+def enviar_correo(email, usuario):
+    passToken = 'skhxvywqburocwjv'
+    emailPage =     'doggylovy.contact@gmail.com'
+    
+    yag = yagmail.SMTP(user = emailPage, password = passToken)
+    
+    username= usuario
+    destinatario = email
+    asunto = 'Confirmacion de creacion de cuenta'
+    html= """<!DOCTYPE html>
+            <body>
+                <h1>¡Gracias por registrarte!</h1>
+                <p>Te damos la bienvenida a nuestro sitio. Estamos emocionados de tenerte como parte de nuestra comunidad.</p>
+            </body>
+            </html>
+        """
+    mensaje = 'Hola ' + username + ' tu cuenta fue creada con exito!!' + '\n' + html
+    yag.send(destinatario, asunto, mensaje)
+    yag.close()
