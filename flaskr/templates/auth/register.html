@@ -19,8 +19,9 @@
           id="username"
           placeholder="Nombre de Usuario"
           required
+          pattern="[A-Za-z0-9\-_\.]{3,}"
           maxlength=20
-          oninvalid="this.setCustomValidity('Ingrese un nombre de usuario')"
+          oninvalid="this.setCustomValidity('Ingrese un nombre de usuario entre 3 y 20 caracteres. Puede tener los simbolos \x22_\x22, \x22.\x22 o \x22-\x22.')"
           oninput="this.setCustomValidity('')"
         />
         <input
@@ -51,8 +52,10 @@
           name="phoneNumber"
           id="phoneNumber"
           placeholder="Numero de telefono"
-          required
           maxlength=10
+          minlength=10
+          required
+          pattern="[0-9]+"
           oninvalid="this.setCustomValidity('Ingrese un numero de telefono valido')"
           oninput="this.setCustomValidity('')"
         />
@@ -61,7 +64,7 @@
           type="date"
           name="birthDate"
           id="birthDate"
-          min="1930-01-01"
+          min="1910-01-01"
           max="2005-01-01"
           required
           oninvalid="this.setCustomValidity('Ingrese una fecha')"
@@ -73,7 +76,8 @@
           id="password"
           placeholder="Contrasena"
           required
-          oninvalid="this.setCustomValidity('Ingrese una contrasena')"
+          pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$"
+          oninvalid="this.setCustomValidity('Ingrese una contrasena de minimo 8 caracteres, una mayuscula, un numero y un simbolo especial')"
           oninput="this.setCustomValidity('')"
         />
         <input
@@ -82,8 +86,7 @@
           id="confirmPassword"
           placeholder="Confirmar contrasena"
           required
-          oninvalid="this.setCustomValidity('Ingrese la confirmacion de contrasena')"
-          oninput="this.setCustomValidity('')"
+          onblur="checkPasswords()"
         />
         <button type="submit" class="submit-button">Registrarme</button>
       </form>           
@@ -93,4 +96,15 @@
     </div>
   </div>
 </div>
+<script type="text/javascript">
+  function checkPasswords() {
+    passInput = document.getElementById("password")
+    confPassInput = document.getElementById("confirmPassword")
+    confPassInput.setCustomValidity("")
+
+    if (passInput.value != confPassInput.value) {
+      confPassInput.setCustomValidity("Las contrasenas no coinciden")
+    }
+  }
+</script>
 {% endblock %}
