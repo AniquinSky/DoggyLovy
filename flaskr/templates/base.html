@@ -1,23 +1,36 @@
 <!doctype html>
 <title>{% block title %}{% endblock %} DoggyLovy</title>
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> 
-<!--<nav>
-  <h1>DoggyLovy</h1>
-  <ul>
-    <li><a href="{{ url_for('inicio.index') }}">Inicio</a>
 
-    {% if g.user %}
-      <li><span>{{ g.user['username'] }}</span>
-      <li><a href="{{ url_for('auth.logout') }}">Log Out</a>
-    {% else %}
-      <li><a href="{{ url_for('auth.login') }}">Log In</a>
-    {% endif %}
-  </ul>
-</nav>-->
+<meta charset="utf-8">
+
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="Free HTML Templates" name="keywords"/>
+<meta content="Free HTML Templates" name="description"/>
+
+<!-- Favicon 
+<link href="img/favicon.ico" rel="icon">-->
+
+<!-- Google Web Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet"/> 
+
+<!-- Font Awesome -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet"/>
+
+<!-- Flaticon Font -->
+<link href="{{ url_for('static', filename='lib/flaticon/font/flaticon.css') }}" rel="stylesheet"/> 
+
+
+<!-- Libraries Stylesheet -->
+<link href="{{ url_for('static', filename='lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet"/>
+<link href="{{ url_for('static', filename='lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css') }}" rel="stylesheet"/>
+
+<!-- Customized Bootstrap Stylesheet -->
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"/> 
 
 <section class="content">
   <header>
-    <nav>
+
+<!--<nav>
       <div class="container__header">
         <div class="menu">
           <div class="logo">
@@ -25,12 +38,17 @@
                 <img src = "{{ url_for('static', filename='img/logo.png')}}">
             </a>
           </div>
-
             <nav>
                 <ul>
                     <li><a href="{{ url_for('inicio.index') }}">Inicio</a></li>
-                    {% if g.user %}
-                      <!--aqui van los links a las paginas que se verán cuando se loguea -->
+                    {% if g.user %}                     
+                          aqui van los links a las paginas que se verán cuando se loguea 
+                          <li><a href="#Mi perfil">Mi perfil</a></li>
+                          <li><a href="#Match">Match</a></li>
+                          <li><a href="#Adopcion">Adopcion</a></li>
+                      LINEA COMENTADA    <a href="#Actualizacion de datos">Actualizacion de datos</a>
+                          <li><a href="#Registrar mascota">Registrar mascota</a></li>
+                          <li><span>{{ g.user[0] }}</span></li>                    
                     {% else %}
                       <li><a href="#">Contactos</a></li>
                       <li><a href="#">Servicios</a></li>
@@ -38,19 +56,101 @@
                     {% endif %}
                 </ul>
             </nav>
-            {% if g.user %}  
-              <span>{{ g.user[0] }}</span>
+            {% if g.user %}               
               <a href="{{ url_for('auth.logout') }}" class="btn__quote">Salir</a>       
             {% else %} 
               <a href="{{ url_for('auth.login') }}" class="btn__quote" >Iniciar Sesion</a>
             {% endif %}
-
-        </div>
-  
+        </div>  
       </div>
+    </nav>  -->
+
+<!-- Topbar Start -->
+  <div class="container-fluid">
+    <div class="row bg-secondary py-2 px-lg-5">
+        <div class="col-lg-6 text-center text-lg-left mb-2 mb-lg-0">
+            <div class="d-inline-flex align-items-center">
+                <a class="text-white px-3" href="">Ayuda</a>
+                <span class="text-white">|</span>
+                <a class="text-white pl-3" href="">Suporte</a>
+            </div>
+        </div>
+        <div class="col-lg-6 text-center text-lg-right">
+            <div class="d-inline-flex align-items-center">
+
+              <!--Agregar links de las páginas-->
+                <a class="text-white px-3" href="">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a class="text-white px-3" href="">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a class="text-white px-3" href="">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <!-- <a class="text-white pl-3" href="">
+                    <i class="fab fa-youtube"></i>
+                </a> -->
+            </div>
+        </div>
+    </div>
+    <div class="row py-3 px-lg-5">
+        <div class="col-lg-4">
+            <a href="" class="navbar-brand d-none d-lg-block">
+                <h1 class="m-0 display-5 text-capitalize"><span class="text-primary">Doggy</span>Lovy</h1>
+            </a>
+        </div>
+        <div class="col-lg-8 text-center text-lg-right">
+            <div class="d-inline-flex align-items-center">
+                <div class="d-inline-flex flex-column text-center pl-3">
+                    <h6>Correo</h6>
+                    <p class="m-0">doggylovy.contact@gmail.com</p>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  <!-- Topbar End -->
+
+
+  <!-- Navbar Start -->
+  <div class="container-fluid p-0">
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 py-lg-0 px-lg-5">
+        <a href="" class="navbar-brand d-block d-lg-none">
+            <h1 class="m-0 display-5 text-capitalize font-italic text-white"><span class="text-primary">Doggy</span>Lovy</h1>
+        </a>
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
+            <div class="navbar-nav mr-auto py-0">
+              
+                {% if g.user %}                     
+                      <!--aqui van los links a las paginas que se verán cuando se loguea -->
+                      <li><a href="#Mi perfil">Mi perfil</a></li>
+                      <li><a href="#Match">Match</a></li>
+                      <li><a href="#Adopcion">Adopcion</a></li>
+                      <a href="#Actualizacion de datos">Actualizacion de datos</a> 
+                      <li><a href="#Registrar mascota">Registrar mascota</a></li>
+                      <li><span>{{ g.user[0] }}</span></li>                    
+                {% else %}
+                  <!--Agregar links que direccion de las páginas-->
+                  <a href="{{ url_for('inicio.index') }}" class="nav-item nav-link active">Inicio</a>
+
+                  <!--Faltan estas-->
+                  <a href="service.html" class="nav-item nav-link">Servicio</a>
+                  <a href="contact.html" class="nav-item nav-link">Contacto</a>
+                  <a href="about.html" class="nav-item nav-link">Sobre Nosotros</a>               
+                {% endif %}              
+            </div>
+            <a href="{{ url_for('auth.login') }}" class="btn btn-lg btn-primary px-3 d-none d-lg-block">Iniciar Sesion</a>
+        </div>
     </nav>
+  </div>
+<!-- Navbar End -->
     {% block header %}{% endblock %}
   </header>
+
   {% for message in get_flashed_messages() %}
     <div class="flash">{{ message }}</div>
   {% endfor %}

@@ -1,0 +1,376 @@
+html,body{height:100%}    
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;1,100;1,200;1,400&family=Poppins:ital,wght@0,100;0,200;0,400;0,700;1,400&display=swap');
+
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: 'Poppins', sans-serif;
+}
+
+:root{
+    --color_text-primary: #feae4b;
+    --color_text-secundary: #35352b;
+    --color_text-tertiary: #d3c8b4;
+    --main_color-primary: #cc4e00;
+    --main_color-secundary: #ffdd8c;
+    --lowText_font_size: 16px;
+    --text_size_title: 40px;
+    --text_title-card: 24px;
+    --text_title-cardv2: 20px;
+    --text_paragraph: 16px;
+    --box_shadow-primary: 0px 6px 50px -20px rgba(0,0,0,0.2);
+    --background-color: #fff9f4;
+}
+
+header{
+    width: 100%;
+    height: 100px;
+    position: fixed;
+    z-index: 100;
+}
+
+.container__header{
+    /*max-width: 1200px;
+    padding: 0px 20px;*/
+    height: 100%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+   
+    
+}
+
+.logo{
+    display: flex;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+}
+
+.logo img{
+    margin: 10% 50%;
+    width: 70px;
+
+}
+
+.menu{
+    display: flex;
+    align-items: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--main_color-secundary);
+    box-shadow: 0 1.5rem 2rem rgba(0, 0, 0, .1);
+    /*padding: 2rem 9%;*/
+    justify-content: space-between;
+    
+}
+
+.menu nav{
+    margin: 0px 50px;
+
+}
+
+.menu nav ul{
+    display: flex;
+}
+
+.menu nav ul li{
+    list-style: none;
+    margin: 20px 16px;
+
+
+}
+
+.menu nav ul li a{
+    color: var(--color_text-secundary); 
+    font-size: var(--lowText_font_size); 
+    position: relative;
+
+}
+
+.menu nav ul li a:hover{
+    color: var(--color_text-primary);
+}
+
+.btn__quote{
+    display: block;
+    padding: 8px 40px;
+    border: 2px solid var(--main_color-primary);
+    border-radius: 8px;
+    font-weight: 500;
+    margin: 0px 20px;
+
+}
+
+.btn__quote:hover{
+    color: white;
+    background: var(--main_color-primary);
+}
+
+.btn__quota{
+    display: block;
+    padding: 8px 40px;
+    border: 2px solid var(--main_color-primary);
+    border-radius: 8px;
+    font-weight: 500;
+    margin: 0px 20px;
+
+}
+
+.btn__quota:hover{
+    color: white;
+    background: var(--main_color-primary);
+}
+
+/*portada de inicio*/
+
+.container__cover{
+    padding-top: 100px;
+    padding-bottom: 100px;
+    background: var(--main_color-secundary);
+}
+
+.cover{
+    max-width: 1200px;
+    margin: auto;
+    margin-top: 100px;
+    display: flex;
+    align-items: center;
+    padding: 0px 20px;
+}
+
+.text__cover{
+    width: 100%;
+    padding-right: 150px;
+
+}
+
+.text__cover h1{
+    font-size: 50px;
+    color: var(--color_text-secundary);
+}
+
+.text__cover p{
+    font-size: var(--text_paragraph);
+    margin-top: 40px;
+    color: #061f30;
+}
+
+.btn__text{
+    display: block;
+    width: 150px;
+    margin-top: 40px;
+    padding: 10px 20px;
+    text-align: center;
+    font-weight: 500;
+    background: var(--main_color-primary);
+    color: white;
+    border-radius: 8px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: all 300ms;
+}
+
+.btn__text:hover{
+    background: transparent;
+    border: 2px solid var(--main_color-primary);
+    color: var(--color_text-primary);
+}
+
+.image__cover{
+    width: 100%;
+}
+
+.image__cover img{
+    width: 350px;
+}
+
+/*estilos generales CARDS*/
+
+
+.container__card-primary{
+    padding-top: 100px;
+
+}
+
+.card__primary{
+    max-width: 1200px;
+    margin: auto;
+    text-align: center;
+    padding: 0px 20px;
+}
+
+.text__card-primary{
+    max-width: 800px;
+    margin: auto;
+}
+
+.text__card-primary p{
+    color: var(--color_text-primary);
+    letter-spacing: 4px;
+    font-size: var(--text_paragraph);
+    font-weight: 500;
+}
+
+.text__card-primary h1{
+    font-size: var(--text_size_title);
+    font-weight: 600;
+    color: var(--color_text-secundary);
+}
+
+.container__box-cardPrimary{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 40px;
+
+}
+
+.box__card-primary{
+    max-width: 350px;
+    padding: 60px 40px;
+    border: 1px solid #e6e6e6;
+    border-radius: 20px;
+    margin: 14px;
+    transition: all 300ms;
+}
+
+.box__card-primary:hover{
+    border: 1px solid transparent;
+    box-shadow: var(--box_shadow-primary);
+}
+
+.box__card-primary h2{
+    font-size: var(--text_title-card);
+    margin-top: 40px;
+    font-weight: 500;
+
+}
+
+.box__card-primary p{
+    margin-top: 20px;
+}
+
+
+/*sobre nosotros*/
+
+.container__about{
+    padding: 100px 0px;
+    background: var(--background-color);
+    margin-top: 100px;
+}
+
+.about{
+    max-width: 1200px;
+    margin: auto;
+    padding: 0px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.text__about{
+    width: 100%;
+    padding-right: 40px;
+
+}
+
+.text__about h1{
+    color: var(--color_text-secundary);
+    font-weight: 600;
+}
+
+.text__about p{
+    font-size: var(--text_paragraph);
+    margin-top: 40px;
+    color: var(--color_text-tertiary);
+}
+
+.image__about{
+    width: 100%;
+    display: flex;
+
+}
+
+.image__about img{
+    width: 300px;
+}
+
+/*servicios*/
+
+.card__service img{
+    width: 50px;
+}
+/*preguntas*/
+
+.footer{
+    color: var(--background-color);
+    background-color: var(--color_text-primary);
+    max-width: 1200px;
+    margin: auto;
+    padding: 0px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer__title{
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: var(--text_paragraph);
+}
+
+.footer__paragraph{
+    line-height: 1.5;
+    margin: 16px 0 50px;
+}
+
+.footer__form{
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 80px;
+}
+
+.footer__input{
+    flex-basis: 100%;
+    flex-grow: 1;
+    font-size: var(--lowText_font_size);
+    font-family: var(--color_text-secundary);
+    border: none;
+    outline: none;
+    border-radius: 3px;
+    padding: 16px 6px;
+    margin-bottom: 20px;
+    color: var(--color_text-secundary);
+    text-decoration: none;
+   
+}
+
+.footer__cta{
+    font-size: 16px;
+    font-family: var(--text_paragraph);
+    background-color: var(--main_color-primary);
+    color: var(--background-color);
+    text-decoration: none;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 40px;
+    font-weight: 600;
+    margin-left: auto;
+}
+
+.footer__contact{
+    line-height: 50px;
+}
+
+.footer__contact-email::after{
+     content: "doggylovypw@gmail.com";
+     
+
+}

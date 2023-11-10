@@ -1,12 +1,17 @@
 {% extends 'base.html' %}
+
 {% block header %}
   <h1>{% block title %}{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
-<div class="container__cover  div__offset">  
-    <section class="text__cover">
-        <h1>Entre</h1>           
-    </section>
-</div>
+  <link rel="stylesheet"href="{{ url_for('static', filename='estilo.css') }}">
+
+  
+  <div class="contenedor">
+    <img src = "{{ url_for('static', filename='img/PerroGatos.jpg')}}"alt="Imagen de fondo">
+    <p>Elige el servicio que se adapte a ti</p>
+  </div>
+
+
 {% endblock %}
