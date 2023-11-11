@@ -119,20 +119,27 @@
         <a href="" class="navbar-brand d-block d-lg-none">
             <h1 class="m-0 display-5 text-capitalize font-italic text-white"><span class="text-primary">Doggy</span>Lovy</h1>
         </a>
-        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+        <!-- <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
-        </button>
+        </button> -->
         <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
             <div class="navbar-nav mr-auto py-0">
               
                 {% if g.user %}                     
-                      <!--aqui van los links a las paginas que se verán cuando se loguea -->
-                      <li><a href="#Mi perfil">Mi perfil</a></li>
-                      <li><a href="#Match">Match</a></li>
-                      <li><a href="#Adopcion">Adopcion</a></li>
-                      <a href="#Actualizacion de datos">Actualizacion de datos</a> 
-                      <li><a href="#Registrar mascota">Registrar mascota</a></li>
-                      <li><span>{{ g.user[0] }}</span></li>                    
+                    <!--aqui van los links a las paginas que se verán cuando se loguea -->
+                    <a href="#" class="nav-item nav-link active"><span>{{ g.user[0] }}</span></a>
+
+                    <!--Faltan estas-->
+                    <!-- <a href="service.html" class="nav-item nav-link">Servicio</a>
+                    <a href="contact.html" class="nav-item nav-link">Contacto</a>
+                    <a href="about.html" class="nav-item nav-link">Sobre Nosotros</a>  
+
+                    <li><a href="#Mi perfil">Mi perfil</a></li>
+                    <li><a href="#Match">Match</a></li>
+                    <li><a href="#Adopcion">Adopcion</a></li>
+                    <a href="#Actualizacion de datos">Actualizacion de datos</a> 
+                    <li><a href="#Registrar mascota">Registrar mascota</a></li>
+                    <li><span>{{ g.user[0] }}</span></li>                     -->
                 {% else %}
                   <!--Agregar links que direccion de las páginas-->
                   <a href="{{ url_for('inicio.index') }}" class="nav-item nav-link active">Inicio</a>
@@ -143,7 +150,13 @@
                   <a href="about.html" class="nav-item nav-link">Sobre Nosotros</a>               
                 {% endif %}              
             </div>
-            <a href="{{ url_for('auth.login') }}" class="btn btn-lg btn-primary px-3 d-none d-lg-block">Iniciar Sesion</a>
+
+            <!-- Aquí muestra si esta logeado pinta boton salir de lo contrario Inicia sesion -->
+            {% if g.user %}
+              <a href="{{ url_for('auth.logout') }}" class="btn btn-lg btn-primary px-3 d-none d-lg-block">Salir</a>
+            {% else %}
+              <a href="{{ url_for('auth.login') }}" class="btn btn-lg btn-primary px-3 d-none d-lg-block">Iniciar Sesion</a>
+            {% endif %}        
         </div>
     </nav>
   </div>

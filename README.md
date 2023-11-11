@@ -37,7 +37,7 @@ Activar el entorno:
 
 Ya dentro del entorno instalamos flask y dependencias:
 ```
-pip install Flask psycopg2-binary
+pip install Flask psycopg2-binary yagmail[all]
 ```
 
 Levantar ambiente :
@@ -57,3 +57,4 @@ flask --app flaskr run --debug
 
 [Aprende GIT ahora! curso completo GRATIS desde cero]: https://www.youtube.com/watch?v=VdGzPZ31ts8
 [Flask]: https://flask.palletsprojects.com/en/3.0.x/
+

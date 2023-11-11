@@ -5,39 +5,54 @@
 {% endblock %}
 
 {% block content %}
-<link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
-<div class="container__cover  div__offset">
-  <div class="container">
-    <div class="form-container">
-      <form method="post">
-        {% for message in get_flashed_messages() %}
-        <div class="flash">{{ message }}</div>
-        {% endfor %}
-        <p class="form-title">Inicio de sesion</p>
-        <input
-          name="username"
-          id="username"
-          placeholder="Nombre de Usuario"
-          required
-          maxlength=20
-          oninvalid="this.setCustomValidity('Ingrese su nombre de usuario')"
-          oninput="this.setCustomValidity('')"
-        />
-        <input
-          type="password"
-          name="password"
-          id="password"
-          placeholder="Contrasena"
-          required
-          oninvalid="this.setCustomValidity('Ingrese su contrasena')"
-          oninput="this.setCustomValidity('')"
-        />
-        <button type="submit" class="submit-button">Iniciar Sesion</button>
-      </form>
-      <button type="button" class="login-button" onclick="window.location.href = '{{ url_for('auth.register') }}' ; "/>
-        No tengo cuenta.
-      </button>
+<!-- Contact Start -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+  <div class="container-fluid pt-5">
+    <div class="d-flex flex-column text-center mb-5 pt-5">
+      <h1 class="display-4 m-0">Hola <span class="text-primary">Bienvenido</span></h1>
+      <h4 class="text-secondary mb-3">Inicia Sesion</h4>    
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-12 col-sm-8 mb-5">
+          <form method="post">
+            {% for message in get_flashed_messages() %}
+              <div class="flash">{{ message }}</div>
+            {% endfor %}
+            <div class="control-group">
+              <input  class="form-control p-4" name="username"
+              id="username"
+              placeholder="Nombre de Usuario"
+              required
+              maxlength=20
+              oninvalid="this.setCustomValidity('Ingrese su nombre de usuario')"
+              oninput="this.setCustomValidity('')" />
+              <p class="help-block text-danger"></p>
+            </div>
+
+            <div class="control-group">
+              <input  class="form-control p-4" type="password"
+              name="password"
+              id="password"
+              placeholder="Contrasena"
+              required
+              oninvalid="this.setCustomValidity('Ingrese su contrasena')"
+              oninput="this.setCustomValidity('')"
+              oninvalid="this.setCustomValidity('Ingrese su nombre de usuario')"
+              oninput="this.setCustomValidity('')" />
+              <p class="help-block text-danger"></p>
+            </div>
+            <button type="submit" class="submit-button">Iniciar Sesion</button>
+          </form>
+          <a style="color: black" href = "{{ url_for('auth.register') }}">No tengo cuenta.</a>
+          <!-- <button type="button" class="login-button" onclick="window.location.href = '{{ url_for('auth.register') }}' ; "/>
+            No tengo cuenta.
+          </button> -->
+        </div>
+        <div class="col-12 mb-n2 p-0">
+            <iframe style="width: 100%; height: 500px;" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3001156.4288297426!2d-78.01371936852176!3d42.72876761954724!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4ccc4bf0f123a5a9%3A0xddcfc6c1de189567!2sNew%20York%2C%20USA!5e0!3m2!1sen!2sbd!4v1603794290143!5m2!1sen!2sbd" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+        </div>
     </div>
   </div>
-</div>
+  <!-- Contact End -->
+
 {% endblock %}
