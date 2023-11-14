@@ -63,6 +63,8 @@ def register():
 
             # Cambiar para que redirija al home page
             if error is None:
+                session.clear()
+                session['user_id'] = username
                 return redirect(url_for("index"))
 
         flash(error)
