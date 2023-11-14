@@ -8,6 +8,7 @@ from flask import (
 from werkzeug.security import check_password_hash, generate_password_hash
 
 import flaskr.db as db
+from psycopg2 import Binary as to_binary
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
@@ -23,6 +24,8 @@ def register():
         birthDate = request.form['birthDate']
         password = request.form['password']
         confirmPassword = request.form['confirmPassword']
+        imagen = request.files['dni']
+        dniData = imagen.read()
 
         error = None
 
@@ -44,20 +47,23 @@ def register():
             cur = connDB.cursor()
             try:
                 cur.execute(
-                    "INSERT INTO usuario (id_usuario, nom_usuario, correo, password, telefono, fecha_nacimiento, genero) VALUES (%s, %s, %s, %s, %s, %s, %s)",
-                    (username, personName, email, generate_password_hash(password), phoneNumber, birthDate, gender),
+                    "INSERT INTO usuario (id_usuario, nom_usuario, correo, password, telefono, fecha_nacimiento, genero, dni) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)",
+                    (username, personName, email, generate_password_hash(password), phoneNumber, birthDate, gender, to_binary(dniData)),
                 )
                 connDB.commit()
                 enviar_correo(email, username)
             except connDB.IntegrityError:
                 error = f"El nombre de usuario {username} ya se encuentra ocupado."
+                print(e)
             except Exception as e:
                 print(e)
                 error = "Ocurrio un error inesperado. Intentelo mas tarde."
             cur.close()
             db.close_db()
+
             # Cambiar para que redirija al home page
-            return redirect(url_for("index"))
+            if error is None:
+                return redirect(url_for("index"))
 
         flash(error)
 

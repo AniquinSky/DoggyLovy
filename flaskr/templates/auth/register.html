@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-<form method="post">
+<form method="post" enctype="multipart/form-data">
   {% for message in get_flashed_messages() %}
   <div class="flash">{{ message }}</div>
   {% endfor %}
@@ -88,7 +88,7 @@
                       
                       <div class="form-group">
                         
-                        <div class="date" id="birthDate" data-target-input="nearest">
+                        <div class="date" data-target-input="nearest">
                           <label for="birthDate" style="color: black">Fecha de nacimiento:</label>
                             <input 
                               type="date" 
@@ -130,6 +130,19 @@
                           placeholder="Confirmar contrasena"
                           required
                           onblur="checkPasswords()"
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label for="dni" style="color: black">Foto de INE:</label>
+                        <input
+                          type="file"
+                          name="dni"
+                          id="dni"
+                          class="form-control border-0 p-4"
+                          accept="image/png, image/jpg, image/jpeg"
+                          required
+                          oninvalid="this.setCustomValidity('Ingrese una foto de su INE')"
+                          oninput="this.setCustomValidity('')"
                         />
                       </div>
                      <!--Aquí terminan las cajas de texto de registro-->
