@@ -1,7 +1,7 @@
 import os
 
 from flask import Flask
-from . import db, auth, inicio
+from . import db, auth, pets, inicio
 
 def create_app(test_config=None):
     # create and configure the app
@@ -32,5 +32,6 @@ def create_app(test_config=None):
     #db.init_app(app)
     app.register_blueprint(auth.bp)
     app.register_blueprint(inicio.bp)
+    app.register_blueprint(pets.bp)
     app.add_url_rule('/', endpoint='index')
     return app
