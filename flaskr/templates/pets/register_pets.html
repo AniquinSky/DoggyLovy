@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-<form method="post">
+<form method="post" enctype="multipart/form-data">
   {% for message in get_flashed_messages() %}
   <div class="flash">{{ message }}</div>
   {% endfor %}
@@ -24,122 +24,114 @@
                     <!--Aquí empiezan las cajas de texto de registro-->
                       <div class="form-group">
                         <input 
-                          name="username"
-                          id="username" 
+                          name="nombre"
+                          id="nombre"
                           class="form-control border-0 p-4" 
-                          placeholder="Nombre de Usuario" 
+                          placeholder="Nombre de su mascota"
                           required 
-                          pattern="[A-Za-z0-9\-_\.]{3,}"
-                          maxlength=20
-                          oninvalid="this.setCustomValidity('Ingrese un nombre de usuario entre 3 y 20 caracteres. Puede tener los simbolos \x22_\x22, \x22.\x22 o \x22-\x22.')"
-                          oninput="this.setCustomValidity('')"/>
+                          maxlength=40
+                          oninvalid="this.setCustomValidity('Ingrese el nombre de su mascota.')"
+                          oninput="this.setCustomValidity('')"
+                        />
                       </div>
 
                       <div class="form-group">
                         <input
-                          name="personName"
-                          id="personName"
+                          type="number"
+                          name="edad"
+                          id="edad"
                           class="form-control border-0 p-4"
-                          placeholder="Nombre completo"
+                          placeholder="Edad de su mascota"
                           required
-                          maxlength=255
-                          oninvalid="this.setCustomValidity('Ingrese su nombre completo')"
-                          oninput="this.setCustomValidity('')"/>
+                          min=0
+                          max=50
+                          oninvalid="this.setCustomValidity('Indique la edad de su mascota.')"
+                          oninput="this.setCustomValidity('')"
+                        />
                       </div>
                       
                       <div class="form-group">                   
-                        <select name="gender" id="gender" class="custom-select border-0 px-4" style="height: 47px;">
-                          <option selected disabled>Genero</option>
-                          <option value="hombre">Hombre</option>
-                          <option value="mujer">Mujer</option>
+                        <select name="especie" id="especie" class="custom-select border-0 px-4" style="height: 47px;">
+                          <option selected disabled>Especie</option>
+                          <option value="perro">Perro</option>
+                          <option value="gato">Gato</option>
                         </select>
                       </div>
 
                       <div class="form-group">
                         <input
-                          type="email"
-                          name="email"
-                          id="email"
+                          name="raza"
+                          id="raza"
                           class="form-control border-0 p-4"
-                          placeholder="Correo electronico"
+                          placeholder="Raza de su mascota"
                           required
-                          maxlength=255
-                          oninvalid="this.setCustomValidity('Ingrese su nombre completo')"
-                          oninput="this.setCustomValidity('')"/>
+                          maxlength=40
+                          oninvalid="this.setCustomValidity('Indique la raza de su mascota.')"
+                          oninput="this.setCustomValidity('')"
+                        />
                       </div>
 
                       <div class="form-group">
                         <input
-                          name="phoneNumber"
-                          id="phoneNumber"
+                          name="condicionMedica"
+                          id="condicionMedica"
                           class="form-control border-0 p-4"
-                          placeholder="Numero de telefono"
-                          maxlength=10
-                          minlength=10
+                          placeholder="Condicion medica"
+                          maxlength=100
                           required
-                          pattern="[0-9]+"
-                          oninvalid="this.setCustomValidity('Ingrese un numero de telefono valido')"
-                          oninput="this.setCustomValidity('')"/>
+                          oninvalid="this.setCustomValidity('Indique la condicion medica de su mascota.')"
+                          oninput="this.setCustomValidity('')"
+                        />
                       </div>
                       
+                      <!-- Hacer que este input tenga un estilo de caja de texto mas grande que el resto de inputs -->
                       <div class="form-group">
-                        
-                        <div class="date" id="birthDate" data-target-input="nearest">
-                          <label for="birthDate" style="color: black">Fecha de nacimiento:</label>
-                            <input 
-                              type="date" 
-                              name="birthDate"
-                              id="birthDate"
-                              class="form-control border-0 p-4 datetimepicker-input" 
-                              placeholder="Fecha de nacimiento" 
-                              data-target="#date" 
-                              data-toggle="datetimepicker"
-                              min="1910-01-01"
-                              max="2005-01-01"
-                              required
-                              oninvalid="this.setCustomValidity('Ingrese una fecha')"
-                              oninput="this.setCustomValidity('')"
-                            />
-                        </div>
-                      </div>
-
-                      <div class="form-group">
+                        <label for="descripcion" >
+                          Ingrese una descripcion de su mascota
+                          (como es fisicamente, personalidad, que le gusta o disgusta, etc.).
+                        </label>
                         <input
-                        type="password"
-                        name="password"
-                        id="password"
-                        class="form-control border-0 p-4"
-                        placeholder="Contrasena"
-                        required
-                        pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$"
-                        oninvalid="this.setCustomValidity('Ingrese una contrasena de minimo 8 caracteres, una mayuscula, un numero y un simbolo especial')"
-                        oninput="this.setCustomValidity('')"name="phoneNumber"
+                          name="descripcion"
+                          id="descripcion"
+                          class="form-control border-0 p-4"
+                          required
+                          oninvalid="this.setCustomValidity('Ingrese una descripcion de su mascota.')"
+                          oninput="this.setCustomValidity('')"
                         />    
                       </div>
 
                       <div class="form-group">
                         <input
-                          type="password"
-                          name="confirmPassword"
-                          id="confirmPassword"
+                          type="file"
+                          name="foto_mascota"
+                          id="foto_mascota"
                           class="form-control border-0 p-4"
-                          placeholder="Confirmar contrasena"
                           required
-                          onblur="checkPasswords()"
+                          oninvalid="this.setCustomValidity('Ingrese una foto de su mascota.')"
+                          oninput="this.setCustomValidity('')"
                         />
                       </div>
-                     <!--Aquí terminan las cajas de texto de registro-->
+
+                      <div class="form-group">
+                        <label for="opciones">Indique si el registro de su mascota es para match (buscar pareja) o dar en adopcion:</label>
+                        <fieldset>
+                          <div id="opciones">
+                            <input type="radio" id="match" name="destino" value="match" checked />
+                            <label for="match">Match</label>
+
+                            <input type="radio" id="adopcion" name="destino" value="adopcion" />
+                            <label for="adopcion">Adopcion</label>
+                          </div>
+                        </fieldset>
+                      </div>
+
+                      <!--Aquí terminan las cajas de texto de registro-->
 
                      <!-- Boton de registro -->
                       <div>
-                        <button type="submit" class="btn btn-dark btn-block border-0 py-3">Registrarme</button>
-                        <!-- <button class="btn btn-dark btn-block border-0 py-3" type="submit">Registrarme</button> -->
+                        <button type="submit" class="btn btn-dark btn-block border-0 py-3">Registrar mascota</button>
                       </div>
                   </form> 
-                    <a style="color: black" href = "{{ url_for('auth.login') }}">Tengo cuenta</a>
-                  <!-- <button type="button" class="login-button" onclick="window.location.href = '{{ url_for('auth.login') }}' ; "/>
-                    Ya tengo cuenta.
-                  </button> -->
               </div>
           </div>
           <div class="col-lg-7 py-5 py-lg-0 px-3 px-lg-5">

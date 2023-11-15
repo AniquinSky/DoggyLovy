@@ -61,7 +61,6 @@ def register():
             cur.close()
             db.close_db()
 
-            # Cambiar para que redirija al home page
             if error is None:
                 session.clear()
                 session['user_id'] = username
@@ -118,6 +117,7 @@ def load_logged_in_user():
             'SELECT nom_usuario FROM usuario WHERE id_usuario = %s', (user_id,)
         )
         g.user = cur.fetchone()
+        g.user_id = user_id
 
 @bp.route('/logout')
 def logout():
