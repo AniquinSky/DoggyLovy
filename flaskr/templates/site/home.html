@@ -64,7 +64,7 @@
                         </ul>
                     </div> -->
                     <div class="card-footer border-0 p-0">
-                        <a href="" class="btn btn-secondary btn-block p-3" style="border-radius: 0;">Entrar</a>
+                        <a href="{{ url_for('adoption.adoption') }}" class="btn btn-secondary btn-block p-3" style="border-radius: 0;">Entrar</a>
                     </div>
                 </div>
             </div>
@@ -91,9 +91,9 @@
                         </ul>
                     </div> -->
                     <div class="card-footer border-0 p-0">
-                        <a href="{{ url_for('pets.registerPets') }}" class="nav-item nav-link active">Inicio</a>
+                        <!--div<a href="{{ url_for('pets.registerPets') }}" class="nav-item nav-link active">Inicio</a>-->
 
-                        <a href="" class="btn btn-primary btn-block p-3" style="border-radius: 0;">Entrar</a>
+                        <a href="{{ url_for('pets.registerPets') }}" class="btn btn-primary btn-block p-3" style="border-radius: 0;">Entrar</a>
                     </div>
                 </div>
             </div>

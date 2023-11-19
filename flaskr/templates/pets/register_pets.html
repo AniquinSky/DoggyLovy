@@ -86,7 +86,7 @@
                       
                       <!-- Hacer que este input tenga un estilo de caja de texto mas grande que el resto de inputs -->
                       <div class="form-group">
-                        <label for="descripcion" >
+                        <label for="descripcion"style="color: black" >
                           Ingrese una descripcion de su mascota
                           (como es fisicamente, personalidad, que le gusta o disgusta, etc.).
                         </label>
@@ -107,20 +107,20 @@
                           id="foto_mascota"
                           class="form-control border-0 p-4"
                           required
-                          oninvalid="this.setCustomValidity('Ingrese una foto de su mascota.')"
+                          oninvalid="this.setCustomValidity('Ingrese foto de su mascota.')"
                           oninput="this.setCustomValidity('')"
                         />
                       </div>
 
                       <div class="form-group">
-                        <label for="opciones">Indique si el registro de su mascota es para match (buscar pareja) o dar en adopcion:</label>
+                        <!--<label for="opciones">Indique si el registro de su mascota es para match (buscar pareja) o dar en adopcion:</label>-->
                         <fieldset>
                           <div id="opciones">
                             <input type="radio" id="match" name="destino" value="match" checked />
-                            <label for="match">Match</label>
+                            <label for="match" style="color: black">Match</label>
 
                             <input type="radio" id="adopcion" name="destino" value="adopcion" />
-                            <label for="adopcion">Adopcion</label>
+                            <label for="adopcion" style="color: black">Adopcion</label>
                           </div>
                         </fieldset>
                       </div>
@@ -134,6 +134,7 @@
                   </form> 
               </div>
           </div>
+          
           <div class="col-lg-7 py-5 py-lg-0 px-3 px-lg-5">
               <h4 class="text-secondary mb-3">¿Por qué registrarse?</h4>
               <!-- <h1 class="display-4 mb-4">Book For <span class="text-primary">Your Pet</span></h1> -->
