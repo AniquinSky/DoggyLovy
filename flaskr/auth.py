@@ -24,8 +24,8 @@ def register():
         birthDate = request.form['birthDate']
         password = request.form['password']
         confirmPassword = request.form['confirmPassword']
-        imagen = request.files['dni']
-        dniData = imagen.read()
+        dni = request.files['dni']
+        picImage = request.files['profile_pic']
 
         error = None
 
@@ -37,23 +37,29 @@ def register():
             error = 'Correo es necesario.'
         if not birthDate:
             error = 'Una fecha de nacimiento es necesaria'
+        if not dni:
+            error = 'Foto de identificacion necesaria.'
+        if not picImage:
+            error = 'Foto de perfil necesaria.'
         if not password:
             error = 'Contrasena es necesaria.'
         elif password != confirmPassword:
             error = 'La contrasena y confirmacion de contrasena no coinciden.'
 
         if error is None:
+            dniData = dni.read()
+            picImageData = picImage.read()
             connDB = db.get_db()
             cur = connDB.cursor()
             try:
                 cur.execute(
-                    "INSERT INTO usuario (id_usuario, nom_usuario, correo, password, telefono, fecha_nacimiento, genero, dni) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)",
-                    (username, personName, email, generate_password_hash(password), phoneNumber, birthDate, gender, to_binary(dniData)),
+                    "INSERT INTO usuario (id_usuario, nom_usuario, correo, password, telefono, fecha_nacimiento, genero, dni, profile_pic, valid_cuenta) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, default)",
+                    (username, personName, email, generate_password_hash(password), phoneNumber, birthDate, gender, to_binary(dniData), to_binary(picImageData)),
                 )
                 connDB.commit()
                 enviar_correo(email, username)
-            except connDB.IntegrityError:
-                error = f"El nombre de usuario {username} ya se encuentra ocupado."
+            except connDB.IntegrityError as e:
+                error = "Datos faltantes."
                 print(e)
             except Exception as e:
                 print(e)
