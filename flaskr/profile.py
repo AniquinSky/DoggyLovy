@@ -12,14 +12,16 @@ bp = Blueprint('profile', __name__, url_prefix='/site')
 def myProfile():
     return render_template('site/profile.html', posts="")
 
-def getInfoForProfilePage():
+def getUserProfilePicture():
+    """Get user's profile picture
+    If error occurs return None.
+    Otherwise returns Profile Picture ready for render it in html with data:image/jpe;base64
+    """
     profile_picture = None
-    pets = []
 
     connDB = db.get_db()
     cur = connDB.cursor()
 
-    # obtener imagen de perfil del usuario
     try:
         cur.execute('SELECT profile_pic FROM usuario WHERE id_usuario=%s', (g.user_id,))
         profile_picture = cur.fetchone()
@@ -31,15 +33,29 @@ def getInfoForProfilePage():
         cur.close()
         db.close_db()
 
+    return profile_picture
+
+def getUserPets():
+    """Get user's pets
+    If error occurs returns None.
+
+    Otherwise returns array of tuples composed of:
+    [0] id_mascota
+    [1] nom_mascota
+    [2] imagen, ready for render it in html with data:image/jpg;base64
+    [3] raza
+    """
+    pets = []
+
     connDB = db.get_db()
     cur = connDB.cursor()
-    # obtener mascotas del usuario
+
     try:
-        cur.execute('SELECT nom_mascota, imagen, raza FROM mascota WHERE id_dueno=%s', (g.user_id,))
+        cur.execute('SELECT id_mascota, nom_mascota, imagen, raza FROM mascota WHERE id_dueno=%s', (g.user_id,))
         results = cur.fetchall()
         for record in results:
-            image_in_base64 = base64.b64encode(record[1]).decode('utf-8')
-            pets.append((record[0], image_in_base64, record[2]))
+            image_in_base64 = base64.b64encode(record[2]).decode('utf-8')
+            pets.append((record[0], record[1], image_in_base64, record[3]))
     except Exception as e:
         print(e)
         pets = None
@@ -47,4 +63,4 @@ def getInfoForProfilePage():
         cur.close()
         db.close_db()
 
-    return (profile_picture, pets)
+    return pets
