@@ -125,6 +125,12 @@ def load_logged_in_user():
         g.user = cur.fetchone()
         g.user_id = user_id
 
+        cur.close()
+        db.close_db()
+
+        g.pet_id = session.get('current_pet_id')
+        g.pet_name = session.get('current_pet_name')
+
 @bp.route('/logout')
 def logout():
     session.clear()

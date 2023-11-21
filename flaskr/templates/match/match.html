@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<p>This is the match page.</p>
+<p>{{ g.pet_id }}</p>
+{% endblock %}

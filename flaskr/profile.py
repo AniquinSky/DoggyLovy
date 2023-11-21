@@ -10,6 +10,12 @@ bp = Blueprint('profile', __name__, url_prefix='/site')
 
 @bp.route('/profile', methods=('GET', 'POST'))
 def myProfile():
+    # Quitar de aqui el bloque trycatch para cuando este listo la eleccion de mascota desde el perfil
+    try:
+        session.pop('current_pet_id')
+        session.pop('current_pet_name')
+    except Exception as e:
+        print(e)
     return render_template('site/profile.html', posts="")
 
 def getUserProfilePicture():
@@ -64,3 +70,19 @@ def getUserPets():
         db.close_db()
 
     return pets
+
+def getUserAmountOfPetsForMatch():
+    amount = 0
+    connDB = db.get_db()
+    cur = connDB.cursor()
+    try:
+        cur.execute('SELECT COUNT(nom_mascota) FROM mascota WHERE id_dueno = %s AND para_match=TRUE', (g.user_id,))
+        amount = cur.fetchone()[0]
+    except Exception as e:
+        print(e)
+        amount = -1
+    finally:
+        cur.close()
+        db.close_db()
+
+    return amount

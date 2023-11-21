@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<body>
+  {% if pets is not none %}
+    <h2>Seleccione su mascota para proceder al match.</h2>
+    {% for pet in pets %}
+      <p>{{ pet[1] }}</p>
+      <a href="/pets/match/selectPet/{{ pet[0] }}{{ pet[1] }}" >
+        <img src='data:image/jpeg;base64, {{ pet[2] }}' >
+      </a>
+      <p>{{ pet[3] }}</p>
+    {% endfor %}
+  {% else %}
+    <h2>Occurio un problema. Intentelo de nuevo mas tarde.</h2>
+  {% endif %}
+</body>
+{% endblock %}

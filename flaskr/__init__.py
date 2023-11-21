@@ -1,7 +1,7 @@
 import os
 
 from flask import Flask
-from . import db, auth, pets, inicio, profile, adoption
+from . import db, auth, pets, inicio, profile, adoption, match
 
 def create_app(test_config=None):
     # create and configure the app
@@ -32,6 +32,7 @@ def create_app(test_config=None):
     #db.init_app(app)
     app.register_blueprint(auth.bp)
     app.register_blueprint(inicio.bp)
+    pets.bp.register_blueprint(match.bp)
     app.register_blueprint(pets.bp)
     app.register_blueprint(profile.bp)
     app.register_blueprint(adoption.bp)
