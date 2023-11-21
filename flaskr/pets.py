@@ -4,6 +4,7 @@ from flask import (
 
 import flaskr.db as db
 from psycopg2 import Binary as to_binary
+import base64
 
 bp = Blueprint('pets', __name__, url_prefix='/pets')
 
@@ -46,7 +47,7 @@ def registerPets():
             try:
                 cur.execute(
                     "INSERT INTO mascota VALUES (default, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
-                    (nombre, edad, especie, raza, condicionMedica, descripcion, to_binary(foto.read()), g.user_id, paraMatch),
+                    (nombre, edad, especie, raza, condicionMedica, descripcion, to_binary(fotoData), g.user_id, paraMatch),
                 )
                 connDB.commit()
             except Exception as e:
@@ -61,3 +62,41 @@ def registerPets():
         flash(error)
 
     return render_template('pets/register_pets.html')
+
+def getPetsForAdoption():
+    connDB = db.get_db()
+    cur = connDB.cursor()
+    pets = []
+    try:
+        cur.execute('SELECT id_mascota, nom_mascota, condicion_medica, descripcion, imagen FROM mascota WHERE para_match=FALSE')
+        results = cur.fetchall()
+        for record in results:
+            image_in_base64 = base64.b64encode(record[4]).decode('utf-8')
+            pets.append((record[0], record[1], record[2], record[3], image_in_base64))
+    except Exception as e:
+        print(e)
+        pets = None
+    finally:
+        cur.close()
+        db.close_db()
+
+    return pets
+
+def getPetsForMatch():
+    connDB = db.get_db()
+    cur = connDB.cursor()
+    pets = []
+    try:
+        cur.execute('SELECT id_mascota, nom_mascota, condicion_medica, descripcion, imagen, edad FROM mascota WHERE para_match=TRUE')
+        results = cur.fetchall()
+        for record in results:
+            image_in_base64 = base64.b64encode(record[4]).decode('utf-8')
+            pets.append((record[0], record[1], record[2], record[3], image_in_base64, record[5]))
+    except Exception as e:
+        print(e)
+        pets = None
+    finally:
+        cur.close()
+        db.close_db()
+
+    return pets
