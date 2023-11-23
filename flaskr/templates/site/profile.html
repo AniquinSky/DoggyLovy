@@ -42,7 +42,10 @@
                                 <small class="mr-3"><i class="fa fa-id-card text-muted"></i> ID: {{ pet[0] }}</small>
                             </div>
                             <!-- Agrega un enlace para actualizar la información de la mascota -->
-                            <a href="{{ url_for('pets.update_pets.update_pets', id=pet[0]) }}" class="btn btn-sm btn-info">Actualizar</a>
+                            <div class="d-flex">
+                              <a href="{{ url_for('pets.match.petSelected', petId=pet[0], petName=pet[1]) }}" class="btn btn-sm btn-info-profile-match">Buscar Match</a>
+                              <a href="{{ url_for('pets.update_pets.update_pets', id=pet[0]) }}" class="btn btn-sm btn-info" style="margin-left: 5px">Actualizar</a>
+                            </div>
                         </div>                
                     </div>
                     {% endfor %}

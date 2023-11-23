@@ -2493,6 +2493,18 @@ fieldset:disabled a.btn {
   border-color: #117a8b;
 }
 
+.btn-info-profile-match {
+  color: #fff;
+  background-color: #ed6436;
+  border-color: #ed6436;
+}
+
+.btn-info-profile-match:hover {
+  color: #fff;
+  background-color: #d4582f;
+  border-color: #d4582f;
+}
+
 .btn-info:focus, .btn-info.focus {
   color: #fff;
   background-color: #138496;
