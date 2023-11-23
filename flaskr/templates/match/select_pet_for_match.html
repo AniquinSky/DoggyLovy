@@ -7,14 +7,38 @@
 {% block content %}
 <body>
   {% if pets is not none %}
-    <h2>Seleccione su mascota para proceder al match.</h2>
-    {% for pet in pets %}
-      <p>{{ pet[1] }}</p>
-      <a href="/pets/match/selectPet/{{ pet[0] }}{{ pet[1] }}" >
-        <img src='data:image/jpeg;base64, {{ pet[2] }}' >
-      </a>
-      <p>{{ pet[3] }}</p>
-    {% endfor %}
+  <div class="container-fluid bg-light pt-5 pb-4">
+    <div class="container py-5">
+      <div class="d-flex flex-column text-center mb-5">
+        <h1 class="display-4 m-0">Seleccione su mascota <span class="text-primary">para el match.</span></h1>
+          <!--<h2>Seleccione su mascota para proceder al match.</h2>-->
+      </div>
+        <div class="row">
+
+          {% for pet in pets %}
+
+            <div class="col-lg-4 mb-4">
+              <div class="card border-0">
+                <div class="card-header position-relative border-0 p-0 mb-4">
+                    <img class="card-img-top" src='data:image/jpeg;base64, {{ pet[2] }}' alt="">
+                    <div class="position-absolute d-flex flex-column align-items-center justify-content-center w-100 h-100" style="top: 0; left: 0; z-index: 1; background: rgba(0, 0, 0, .5);">
+                      <a href="/pets/match/selectPet/{{ pet[0] }}{{ pet[1] }}" >
+                        <h3 class="text-primary mb-3">{{ pet[1] }}</h3>
+                      </a>
+                    </div>
+                </div>
+              </div>
+            </div>    
+            <!--<p>{{ pet[1] }}</p>
+            <a href="/pets/match/selectPet/{{ pet[0] }}{{ pet[1] }}" >
+              <img src='data:image/jpeg;base64, {{ pet[2] }}' >
+            </a>
+            <p>{{ pet[3] }}</p>-->
+          {% endfor %}
+        </div> 
+    </div>
+  </div>
+
   {% else %}
     <h2>Occurio un problema. Intentelo de nuevo mas tarde.</h2>
   {% endif %}
