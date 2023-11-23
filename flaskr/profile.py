@@ -10,12 +10,6 @@ bp = Blueprint('profile', __name__, url_prefix='/site')
 
 @bp.route('/profile', methods=('GET', 'POST'))
 def myProfile():
-    # Quitar de aqui el bloque trycatch para cuando este listo la eleccion de mascota desde el perfil
-    try:
-        session.pop('current_pet_id')
-        session.pop('current_pet_name')
-    except Exception as e:
-        print(e)
     return render_template('site/profile.html', pets = getUserPets())
 
 def getUserProfilePicture():
@@ -86,16 +80,3 @@ def getUserAmountOfPetsForMatch():
         db.close_db()
 
     return amount
-
-@bp.route('/update_pet/<int:pet_id>', methods=('GET', 'POST'))
-def updatePet(pet_id):
-    # Obtén la información de la mascota para mostrar en el formulario de actualización
-    pet_info = getPetInfo(pet_id)
-
-    if request.method == 'POST':
-        # Procesa el formulario de actualización y actualiza la información en la base de datos
-        updatePetInfo(pet_id, request.form['condicionMedica'], request.form['edad'], request.form['descripcion'])
-        flash('Información de la mascota actualizada con éxito.', 'success')
-        return redirect(url_for('site.myProfile'))
-
-    return render_template('site/update_pet.html', pet_info=pet_info)
