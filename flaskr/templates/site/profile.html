@@ -43,8 +43,9 @@
                             </div>
                             <!-- Agrega un enlace para actualizar la información de la mascota -->
                             <div class="d-flex">
-                              <a href="{{ url_for('pets.match.petSelected', petId=pet[0], petName=pet[1]) }}" class="btn btn-sm btn-info-profile-match">Buscar Match</a>
+                              <a href="{{ url_for('pets.match.petSelected', petId=pet[0], petName=pet[1]) }}" class="btn btn-sm btn-info-orange">Buscar Match</a>
                               <a href="{{ url_for('pets.update_pets.update_pets', id=pet[0]) }}" class="btn btn-sm btn-info" style="margin-left: 5px">Actualizar</a>
+                              <a href="{{ url_for('pets.deletePet', petId=pet[0]) }}" name="popup-link" id="{{ pet[1] }}" class="btn btn-sm btn-info" style="margin-left: 5px">Eliminar mascota</a>
                             </div>
                         </div>                
                     </div>
@@ -60,5 +61,50 @@
     </div>
     <!-- Termina Perfil -->
 </body>
+<style>
+#popup-window {
+  position: fixed;
+  width: 300px;
+  height: 200px;
+  background: white;
+  border: 1px solid black;
+  padding: 10px;
+  margin: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 10;
+  display: none;
+}
+</style>
+<div id="popup-window">
+  <p id="asking-message" style="font-size:16px, text-align: center; font-color: black">Pop-up Window</p>
+  <a id="accept-button" class="btn btn-sm btn-info-orange">Aceptar</a>
+  <button id="close-button" class="btn btn-sm btn-info">Cancelar</button>
+</div>
+<script>
+  let popupLinks = document.getElementsByName("popup-link");
+  let popupWindow = document.getElementById("popup-window");
+  let acceptButton = document.getElementById("accept-button");
+  let closeButton = document.getElementById("close-button");
+  let askMessage = document.getElementById("asking-message")
+
+  // Mostrar el popup cuando se hace click en uno de los anchor designados
+  popupLinks.forEach((anchor) => {
+    anchor.addEventListener("click", function(event) {
+      event.preventDefault()
+      popupWindow.style.display = "block"
+      acceptButton.href = anchor.href
+      askMessage.innerText = "¿Esta seguro de eliminar el registro de " + anchor.id + "?"
+      console.log(anchor.href)
+    })
+  })
+
+  // Ocultar el popup cuando se usa el boton cancelar.
+  closeButton.addEventListener("click", function() {
+    popupWindow.style.display = "none";
+  });
+</script>
 
 {% endblock %}

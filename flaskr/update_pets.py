@@ -3,7 +3,6 @@ from flask import (
 )
 
 import flaskr.db as db
-from flaskr.profile import getUserPets
 
 bp = Blueprint('update_pets', __name__, url_prefix='/update_pets')
 
@@ -36,6 +35,6 @@ def update_pets(id):
             cur.close()
             db.close_db()
 
-        return render_template('site/profile.html', pets = getUserPets())
+        return redirect(url_for('profile.myProfile'))
 
     return render_template('pets/update_pets.html')

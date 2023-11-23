@@ -63,6 +63,26 @@ def registerPets():
 
     return render_template('pets/register_pets.html')
 
+@bp.route('/deletePet/<int:petId>')
+def deletePet(petId):
+    connDB = db.get_db()
+    cur = connDB.cursor()
+
+    try:
+        cur.execute('DELETE FROM mascota WHERE id_mascota=%s', (petId,))
+        connDB.commit()
+        session.pop('current_pet_id')
+        session.pop('current_pet_name')
+        flash('Mascota eliminada con exito.')
+    except Exception as e:
+        print(e)
+        flash('Ocurrio un error. Intentelo de nuevo mas tarde.')
+    finally:
+        cur.close()
+        db.close_db()
+
+    return redirect(url_for('profile.myProfile'))
+
 def getPetsForAdoption():
     connDB = db.get_db()
     cur = connDB.cursor()

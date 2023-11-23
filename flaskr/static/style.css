@@ -2493,13 +2493,13 @@ fieldset:disabled a.btn {
   border-color: #117a8b;
 }
 
-.btn-info-profile-match {
+.btn-info-orange {
   color: #fff;
   background-color: #ed6436;
   border-color: #ed6436;
 }
 
-.btn-info-profile-match:hover {
+.btn-info-orange:hover {
   color: #fff;
   background-color: #d4582f;
   border-color: #d4582f;
