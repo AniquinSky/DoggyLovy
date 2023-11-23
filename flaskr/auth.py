@@ -148,7 +148,7 @@ def login_required(view):
 
 def enviar_correo(email, usuario):
     passToken = 'skhxvywqburocwjv'
-    emailPage =     'doggylovy.contact@gmail.com'
+    emailPage = 'doggylovy.contact@gmail.com'
     
     yag = yagmail.SMTP(user = emailPage, password = passToken)
     

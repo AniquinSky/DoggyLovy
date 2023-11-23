@@ -16,7 +16,7 @@ def myProfile():
         session.pop('current_pet_name')
     except Exception as e:
         print(e)
-    return render_template('site/profile.html', posts="")
+    return render_template('site/profile.html', pets = getUserPets())
 
 def getUserProfilePicture():
     """Get user's profile picture
@@ -86,3 +86,16 @@ def getUserAmountOfPetsForMatch():
         db.close_db()
 
     return amount
+
+@bp.route('/update_pet/<int:pet_id>', methods=('GET', 'POST'))
+def updatePet(pet_id):
+    # Obtén la información de la mascota para mostrar en el formulario de actualización
+    pet_info = getPetInfo(pet_id)
+
+    if request.method == 'POST':
+        # Procesa el formulario de actualización y actualiza la información en la base de datos
+        updatePetInfo(pet_id, request.form['condicionMedica'], request.form['edad'], request.form['descripcion'])
+        flash('Información de la mascota actualizada con éxito.', 'success')
+        return redirect(url_for('site.myProfile'))
+
+    return render_template('site/update_pet.html', pet_info=pet_info)
