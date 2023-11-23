@@ -6,10 +6,6 @@
 
 {% block content %}
 <form method="post" enctype="multipart/form-data">
-  {% for message in get_flashed_messages() %}
-  <div class="flash">{{ message }}</div>
-  {% endfor %}
-
   <!-- Empieza Registro -->
   <div class="container-fluid">
     <div class="d-flex flex-column text-center mb-5">

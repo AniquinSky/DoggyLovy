@@ -59,8 +59,15 @@ def register():
                 connDB.commit()
                 enviar_correo(email, username)
             except connDB.IntegrityError as e:
-                error = "Datos faltantes."
                 print(e)
+                if "usuario_pkey" in e.pgerror:
+                    error = f"El nombre de usuario \"{username}\" ya se encuentra registrado."
+                elif "correo_unico" in e.pgerror:
+                    error = f"El correo electronico \"{email}\" ya se encuentra registrado."
+                elif "telefono_unico" in e.pgerror:
+                    error = f"El numero de telefono \"{phoneNumber}\" ya se encuentra registrado."
+                else:
+                    error = "El valor de uno de los campos ya se encuentra registrado."
             except Exception as e:
                 print(e)
                 error = "Ocurrio un error inesperado. Intentelo mas tarde."
