@@ -29,72 +29,34 @@
 
 <section class="content">
   <header>
-
-<!--<nav>
-      <div class="container__header">
-        <div class="menu">
-          <div class="logo">
-            <a href="#">
-                <img src = "{{ url_for('static', filename='img/logo.png')}}">
-            </a>
+  <!-- Topbar Start -->
+    <div class="container-fluid">
+      <div class="row bg-secondary py-2 px-lg-5">
+          <div class="col-lg-6 text-center text-lg-left mb-2 mb-lg-0">
+              <div class="d-inline-flex align-items-center">
+                  <a class="text-white px-3" href="">Ayuda</a>
+                  <span class="text-white">|</span>
+                  <a class="text-white pl-3" href="">Soporte</a>
+              </div>
           </div>
-            <nav>
-                <ul>
-                    <li><a href="{{ url_for('inicio.index') }}">Inicio</a></li>
-                    {% if g.user %}                     
-                          aqui van los links a las paginas que se verán cuando se loguea 
-                          <li><a href="#Mi perfil">Mi perfil</a></li>
-                          <li><a href="#Match">Match</a></li>
-                          <li><a href="#Adopcion">Adopcion</a></li>
-                      LINEA COMENTADA    <a href="#Actualizacion de datos">Actualizacion de datos</a>
-                          <li><a href="#Registrar mascota">Registrar mascota</a></li>
-                          <li><span>{{ g.user[0] }}</span></li>                    
-                    {% else %}
-                      <li><a href="#">Contactos</a></li>
-                      <li><a href="#">Servicios</a></li>
-                      <li><a href="#">Sobre</a></li> 
-                    {% endif %}
-                </ul>
-            </nav>
-            {% if g.user %}               
-              <a href="{{ url_for('auth.logout') }}" class="btn__quote">Salir</a>       
-            {% else %} 
-              <a href="{{ url_for('auth.login') }}" class="btn__quote" >Iniciar Sesion</a>
-            {% endif %}
-        </div>  
+          <div class="col-lg-6 text-center text-lg-right">
+              <div class="d-inline-flex align-items-center">
+
+                <!--Agregar links de las páginas-->
+                  <a class="text-white px-3" href="">
+                      <i class="fab fa-facebook-f"></i>
+                  </a>
+                  <a class="text-white px-3" href="">
+                      <i class="fab fa-twitter"></i>
+                  </a>
+                  <a class="text-white px-3" href="">
+                      <i class="fab fa-instagram"></i>
+                  </a>
+
+              </div>
+          </div>
       </div>
-    </nav>  -->
-
-<!-- Topbar Start -->
-  <div class="container-fluid">
-    <div class="row bg-secondary py-2 px-lg-5">
-        <div class="col-lg-6 text-center text-lg-left mb-2 mb-lg-0">
-            <div class="d-inline-flex align-items-center">
-                <a class="text-white px-3" href="">Ayuda</a>
-                <span class="text-white">|</span>
-                <a class="text-white pl-3" href="">Soporte</a>
-            </div>
-        </div>
-        <div class="col-lg-6 text-center text-lg-right">
-            <div class="d-inline-flex align-items-center">
-
-              <!--Agregar links de las páginas-->
-                <a class="text-white px-3" href="">
-                    <i class="fab fa-facebook-f"></i>
-                </a>
-                <a class="text-white px-3" href="">
-                    <i class="fab fa-twitter"></i>
-                </a>
-                <a class="text-white px-3" href="">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                <!-- <a class="text-white pl-3" href="">
-                    <i class="fab fa-youtube"></i>
-                </a> -->
-            </div>
-        </div>
-    </div>
-    <div class="row py-3 px-lg-5">
+      <div class="row py-3 px-lg-5">
         <div class="col-lg-4">
             <a href="{{ url_for('inicio.index') }}" class="navbar-brand d-none d-lg-block">
                 <h1 class="m-0 display-5 text-capitalize"><span class="text-primary">Doggy</span>Lovy</h1>
@@ -109,62 +71,55 @@
             </div>
         </div>
     </div>
+    </div>
+    
   </div>
   <!-- Topbar End -->
 
 
-  <!-- Navbar Start -->
-  <div class="container-fluid p-0">
-    <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 py-lg-0 px-lg-5">
-        <a href="" class="navbar-brand d-block d-lg-none">
-            <h1 class="m-0 display-5 text-capitalize font-italic text-white"><span class="text-primary">Doggy</span>Lovy</h1>
-        </a>
-        <!-- <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-            <span class="navbar-toggler-icon"></span>
-        </button> -->
-        <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
-            <div class="navbar-nav mr-auto py-0">
-              
-                {% if g.user %}                     
-                    <!--aqui van los links a las paginas que se verán cuando se loguea -->
-                    <a href="{{ url_for('profile.myProfile') }}" class="nav-item nav-link active"><span>{{ g.user[0] }}</span></a>
-                    {% if g.pet_name %}
-                      <a href="{{ url_for('profile.myProfile') }}" class="nav-item nav-link"><span>Mascota: {{ g.pet_name }}</span></a>
-                    {% endif %}
+    <!-- Navbar Start -->
+    <div class="container-fluid p-0">
+      <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 py-lg-0 px-lg-5">
+          <a href="" class="navbar-brand d-block d-lg-none">
+              <h1 class="m-0 display-5 text-capitalize font-italic text-white"><span class="text-primary">Doggy</span>Lovy</h1>
+          </a>
+          <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
+              <div class="navbar-nav mr-auto py-0">
+                
+                  {% if g.user %}                     
+                      <!--aqui van los links a las paginas que se verán cuando se loguea -->
+                      <a href="{{ url_for('profile.myProfile') }}" class="nav-item nav-link active"><span>{{ g.user[0] }}</span></a>
+                      {% if g.pet_name %}
+                        <a href="{{ url_for('profile.myProfile') }}" class="nav-item nav-link"><span>Mascota: {{ g.pet_name }}</span></a>
+                      {% endif %}
+
+                      <!--Faltan estas-->
+                      <!-- <a href="service.html" class="nav-item nav-link">Servicio</a>
+                      <a href="contact.html" class="nav-item nav-link">Contacto</a>
+                      <a href="about.html" class="nav-item nav-link">Sobre Nosotros</a>-->
+                      
+                  {% else %}
+                    <!--Agregar links que direccion de las páginas-->
+                    <a href="{{ url_for('inicio.index') }}" class="nav-item nav-link active">Inicio</a>
 
                     <!--Faltan estas-->
-                    <!-- <a href="service.html" class="nav-item nav-link">Servicio</a>
+                    <a href="service.html" class="nav-item nav-link">Servicio</a>
                     <a href="contact.html" class="nav-item nav-link">Contacto</a>
-                    <a href="about.html" class="nav-item nav-link">Sobre Nosotros</a>  
+                    <a href="about.html" class="nav-item nav-link">Sobre Nosotros</a>               
+                  {% endif %}              
+              </div>
 
-                    <li><a href="#Mi perfil">Mi perfil</a></li>
-                    <li><a href="#Match">Match</a></li>
-                    <li><a href="#Adopcion">Adopcion</a></li>
-                    <a href="#Actualizacion de datos">Actualizacion de datos</a> 
-                    <li><a href="#Registrar mascota">Registrar mascota</a></li>
-                    <li><span>{{ g.user[0] }}</span></li>                     -->
-                {% else %}
-                  <!--Agregar links que direccion de las páginas-->
-                  <a href="{{ url_for('inicio.index') }}" class="nav-item nav-link active">Inicio</a>
-
-                  <!--Faltan estas-->
-                  <a href="service.html" class="nav-item nav-link">Servicio</a>
-                  <a href="contact.html" class="nav-item nav-link">Contacto</a>
-                  <a href="about.html" class="nav-item nav-link">Sobre Nosotros</a>               
-                {% endif %}              
-            </div>
-
-            <!-- Aquí muestra si esta logeado pinta boton salir de lo contrario Inicia sesion -->
-            {% if g.user %}
-              <a href="{{ url_for('auth.logout') }}" class="btn btn-lg btn-primary px-3 d-none d-lg-block">Salir</a>
-            {% else %}
-              <a href="{{ url_for('auth.login') }}" class="btn btn-lg btn-primary px-3 d-none d-lg-block" style="margin-right: 10px">Iniciar Sesion</a>
-              <a href="{{ url_for('auth.register') }}" class="btn btn-lg btn-primary px-3 d-none d-lg-block">Registrarme</a> 
-            {% endif %}        
-        </div>
-    </nav>
-  </div>
-<!-- Navbar End -->
+              <!-- Aquí muestra si esta logeado pinta boton salir de lo contrario Inicia sesion -->
+              {% if g.user %}
+                <a href="{{ url_for('auth.logout') }}" class="btn btn-lg btn-primary px-3 d-none d-lg-block">Salir</a>
+              {% else %}
+                <a href="{{ url_for('auth.login') }}" class="btn btn-lg btn-primary px-3 d-none d-lg-block" style="margin-right: 10px">Iniciar Sesion</a>
+                <a href="{{ url_for('auth.register') }}" class="btn btn-lg btn-primary px-3 d-none d-lg-block">Registrarme</a> 
+              {% endif %}        
+          </div>
+      </nav>
+    </div>
+  <!-- Navbar End -->
     {% block header %}{% endblock %}
   </header>
 
