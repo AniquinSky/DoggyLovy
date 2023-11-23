@@ -43,7 +43,9 @@
                             </div>
                             <!-- Agrega un enlace para actualizar la información de la mascota -->
                             <div class="d-flex">
-                              <a href="{{ url_for('pets.match.petSelected', petId=pet[0], petName=pet[1]) }}" class="btn btn-sm btn-info-orange">Buscar Match</a>
+                              {% if pet[4] is true %}
+                                <a href="{{ url_for('pets.match.petSelected', petId=pet[0], petName=pet[1]) }}" class="btn btn-sm btn-info-orange">Buscar Match</a>
+                              {% endif %}
                               <a href="{{ url_for('pets.update_pets.update_pets', id=pet[0]) }}" class="btn btn-sm btn-info" style="margin-left: 5px">Actualizar</a>
                               <a href="{{ url_for('pets.deletePet', petId=pet[0]) }}" name="popup-link" id="{{ pet[1] }}" class="btn btn-sm btn-info" style="margin-left: 5px">Eliminar mascota</a>
                             </div>

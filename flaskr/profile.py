@@ -43,7 +43,8 @@ def getUserPets():
     [0] id_mascota
     [1] nom_mascota
     [2] imagen, ready for render it in html with data:image/jpg;base64
-    [3] raza
+    [3] raza,
+    [4] para_match
     """
     pets = []
 
@@ -51,11 +52,11 @@ def getUserPets():
     cur = connDB.cursor()
 
     try:
-        cur.execute('SELECT id_mascota, nom_mascota, imagen, raza FROM mascota WHERE id_dueno=%s', (g.user_id,))
+        cur.execute('SELECT id_mascota, nom_mascota, imagen, raza, para_match FROM mascota WHERE id_dueno=%s', (g.user_id,))
         results = cur.fetchall()
         for record in results:
             image_in_base64 = base64.b64encode(record[2]).decode('utf-8')
-            pets.append((record[0], record[1], image_in_base64, record[3]))
+            pets.append((record[0], record[1], image_in_base64, record[3], record[4]))
     except Exception as e:
         print(e)
         pets = None
