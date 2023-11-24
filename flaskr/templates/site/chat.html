@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<script src="https://cdn.socket.io/4.7.2/socket.io.js" crossorigin="anonymous"></script>
+<body>
+    <h1>Socket.IO Test</h1>
+    <p>Chat en linea con {{ other_user_id }}.</p>
+    <div id="chat-history">
+      {% for message in chat_history %}
+        {% if message[0] != g.user_id %}
+          <p style="color: white; background-color: #03b1fc">{{ message[2] }}</p>
+        {% else %}
+          <p style="color: black; background-color: #e8f5fa">{{ message[2] }}</p>
+        {% endif %}
+      {% endfor %}
+    </div>
+    <label for="message">Escriba su mensaje aqui:</label>
+    <textarea id="message"  style="width: 500px; overflow-wrap: break-word;" maxlength=255 >
+    </textarea>
+    <button id="send-message-button" onclick="sendMessage()">Send Message</button>
+
+    <script>
+      const room = '{{ chat_room_id }}'
+      const socket = io('http://127.0.0.1:5000/socket');
+      const chatHistory = document.getElementById('chat-history')
+      document.getElementById('message').value = ''
+
+      socket.on('connect', () => {
+        console.log('Connected to server');
+        socket.emit('joinChatRoom', { creator: '{{ g.user_id }}', guest: '{{ other_user_id }}', room: room })
+      });
+
+      socket.on('disconnect', () => {
+        console.log('Disconnected from server');
+      });
+
+      socket.on('response', (data) => {
+        console.log('Received response:', data);
+      });
+
+      socket.on('chat', (data) => {
+        const paragraph = document.createElement('p')
+        const node = document.createTextNode(data.message)
+        paragraph.appendChild(node)
+        if (data.sender == '{{ g.user_id }}') {
+          paragraph.style = "color: white; background-color: #03b1fc"
+        }
+        else {
+          paragraph.style = "color: black; background-color: #e8f5fa"
+        }
+        chatHistory.appendChild(paragraph)
+      });
+
+      function sendMessage() {
+        let messageValue = document.getElementById('message').value
+        data = { sender: '{{ g.user_id }}', addresse: '{{ other_user_id }}', message: messageValue, room: room }
+        socket.emit('chat', data);
+        document.getElementById('message').value = ''
+      }
+    </script>
+</body>
+{% endblock %}

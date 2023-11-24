@@ -27,7 +27,7 @@
                         </div>
                         <!--<p>Descripcion de contacto</p>-->
                         <p>Dueno: {{ pet[8] }}</p>
-                        <a class="font-weight-bold" href="{{ url_for('chat.chat', id_other_user=pet[8]) }}">Contactar al dueno.</a>
+                        <a class="font-weight-bold" href="{{ url_for('chat.chat', other_user_id=pet[8]) }}">Contactar al dueno.</a>
                     </div>
                 </div>
             </div>

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+Aqui va la lista de chats.
+{% for chat in chats %}
+<p>ID sala: {{ chat[0] }}</p>
+<p>ID creador: {{ chat[1] }}</p>
+<p>ID invitado: {{ chat[2] }}</p>
+{% if chat[1] == g.user_id %}
+<a href="{{ url_for('chat.chat', other_user_id=chat[2])}}">Acceder al chat.</a>
+{% else %}
+<a href="{{ url_for('chat.chat', other_user_id=chat[1])}}">Acceder al chat.</a>
+{% endif %}
+{% endfor %}
+{% endblock %}
