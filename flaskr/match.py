@@ -3,6 +3,7 @@ from flask import (
 )
 
 from flaskr.profile import getUserPets, getUserAmountOfPetsForMatch
+from flaskr.pets import getPetsForMatch
 
 bp = Blueprint('match', __name__, url_prefix='/match')
 
@@ -13,13 +14,13 @@ def match():
 
     # Cuando el usuario ya tiene una mascota seleccianada para el match
     if session.get('current_pet_id') is not None:
-        return render_template('match/match.html')
+        return render_template('match/match.html', pets = getPetsForMatch())
 
     amount_of_pets = getUserAmountOfPetsForMatch()
     # Si solo tiene una se manda al usuario directo al match
     if amount_of_pets == 1:
         session['current_pet_id'] = getUserPets()[0]
-        return render_template('match/match.html')
+        return render_template('match/match.html', pets = getPetsForMatch())
     # Si tiene mas de una, selecciona la mascota para el match
     elif amount_of_pets > 1:
         return render_template('match/select_pet_for_match.html', pets = getUserPets())

@@ -4,6 +4,7 @@ from flask import (
 
 import flaskr.db as db
 import base64
+##from psycopg2 import Binary as to_binary
 
 bp = Blueprint('profile', __name__, url_prefix='/site')
 
@@ -44,6 +45,8 @@ def getUserPets():
     [2] imagen, ready for render it in html with data:image/jpg;base64
     [3] raza,
     [4] para_match
+    [5] likes
+    [6] dislikes
     """
     pets = []
 
@@ -51,11 +54,11 @@ def getUserPets():
     cur = connDB.cursor()
 
     try:
-        cur.execute('SELECT id_mascota, nom_mascota, imagen, raza, para_match FROM mascota WHERE id_dueno=%s', (g.user_id,))
+        cur.execute('SELECT id_mascota, nom_mascota, imagen, raza, para_match, likes, dislikes FROM mascota WHERE id_dueno=%s', (g.user_id,))
         results = cur.fetchall()
         for record in results:
             image_in_base64 = base64.b64encode(record[2]).decode('utf-8')
-            pets.append((record[0], record[1], image_in_base64, record[3], record[4]))
+            pets.append((record[0], record[1], image_in_base64, record[3], record[4], record[5], record[6]))
     except Exception as e:
         print(e)
         pets = None
@@ -80,35 +83,3 @@ def getUserAmountOfPetsForMatch():
         db.close_db()
 
     return amount
-
-@bp.route('/like/<string:user_id>', methods=['POST'])
-def like_user(user_id):
-    connDB = db.get_db()
-    cur = connDB.cursor()
-    try:
-        cur.execute('UPDATE usuario SET likes = likes + 1 WHERE id_usuario = %s', (user_id,))
-        flash('Has dado like', 'success')
-        connDB.commit()
-    except Exception as e:
-        print(e)
-        connDB.rollback()
-    finally:
-        cur.close()
-        db.close_db()
-    return redirect(url_for('profile.myProfile'))
-
-@bp.route('/dislike/<string:user_id>', methods=['POST'])
-def dislike_user(user_id):
-    connDB = db.get_db()
-    cur = connDB.cursor()
-    try:
-        cur.execute('UPDATE usuario SET dislikes = dislikes + 1 WHERE id_usuario = %s', (user_id,))
-        flash('Has dado dsilike', 'success')
-        connDB.commit()
-    except Exception as e:
-        print(e)
-        connDB.rollback()
-    finally:
-        cur.close()
-        db.close_db()
-    return redirect(url_for('profile.myProfile'))
