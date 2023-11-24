@@ -4,7 +4,6 @@ from flask import (
 
 import flaskr.db as db
 import base64
-##from psycopg2 import Binary as to_binary
 
 bp = Blueprint('profile', __name__, url_prefix='/site')
 

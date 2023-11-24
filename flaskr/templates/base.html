@@ -91,8 +91,10 @@
                       <a href="{{ url_for('profile.myProfile') }}" class="nav-item nav-link active"><span>{{ g.user }}</span></a>
                       {% if g.pet_name %}
                         <a href="{{ url_for('profile.myProfile') }}" class="nav-item nav-link"><span>Mascota: {{ g.pet_name }}</span></a>
+                      {% else %}
+                        <a href="{{ url_for('profile.myProfile') }}" class="nav-item nav-link"><span>Mascota: Ninguna</span></a>
                       {% endif %}
-
+                      <a href="{{ url_for('chat.chatsList') }}" class="nav-item nav-link"><span>Lista de chats</span></a>
                       <!--Faltan estas-->
                       <!-- <a href="service.html" class="nav-item nav-link">Servicio</a>
                       <a href="contact.html" class="nav-item nav-link">Contacto</a>

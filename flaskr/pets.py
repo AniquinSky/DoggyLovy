@@ -84,15 +84,31 @@ def deletePet(petId):
     return redirect(url_for('profile.myProfile'))
 
 def getPetsForAdoption():
+    """Get pets for adoption
+    If error occurs return None.
+
+    Otherwise return array of tuples composed of:
+    [0] id_mascota
+    [1] nom_mascota
+    [3] edad,
+    [4] raza,
+    [5] condicion_medica,
+    [6] descripcion,
+    [7] imagen, ready for render it in html with data:image/jpg;base64
+    [8] id_dueno
+    """
     connDB = db.get_db()
     cur = connDB.cursor()
     pets = []
     try:
-        cur.execute('SELECT id_mascota, nom_mascota, condicion_medica, descripcion, imagen FROM mascota WHERE para_match=FALSE')
+        cur.execute(
+            'SELECT * FROM mascota WHERE para_match=FALSE AND id_dueno!=%s',
+            (g.user_id,)
+        )
         results = cur.fetchall()
         for record in results:
-            image_in_base64 = base64.b64encode(record[4]).decode('utf-8')
-            pets.append((record[0], record[1], record[2], record[3], image_in_base64))
+            image_in_base64 = base64.b64encode(record[7]).decode('utf-8')
+            pets.append((record[0], record[1], record[2], record[3], record[4], record[5], record[6], image_in_base64, record[8]))
     except Exception as e:
         print(e)
         pets = None
@@ -103,15 +119,31 @@ def getPetsForAdoption():
     return pets
 
 def getPetsForMatch():
+    """Get pets for adoption
+    If error occurs return None.
+
+    Otherwise return array of tuples composed of:
+    [0] id_mascota
+    [1] nom_mascota
+    [3] edad,
+    [4] raza,
+    [5] condicion_medica,
+    [6] descripcion,
+    [7] imagen, ready for render it in html with data:image/jpg;base64
+    [8] id_dueno
+    """
     connDB = db.get_db()
     cur = connDB.cursor()
     pets = []
     try:
-        cur.execute('SELECT id_mascota, nom_mascota, condicion_medica, descripcion, imagen, edad FROM mascota WHERE para_match=TRUE')
+        cur.execute(
+            'SELECT * FROM mascota WHERE para_match=TRUE AND id_dueno!=%s',
+            (g.user_id,)
+        )
         results = cur.fetchall()
         for record in results:
-            image_in_base64 = base64.b64encode(record[4]).decode('utf-8')
-            pets.append((record[0], record[1], record[2], record[3], image_in_base64, record[5]))
+            image_in_base64 = base64.b64encode(record[7]).decode('utf-8')
+            pets.append((record[0], record[1], record[2], record[3], record[4], record[5], record[6], image_in_base64, record[8]))
     except Exception as e:
         print(e)
         pets = None

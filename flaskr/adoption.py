@@ -3,10 +3,10 @@ from flask import (
 )
 
 import flaskr.db as db
-##from psycopg2 import Binary as to_binary
+from flaskr.pets import getPetsForAdoption
 
 bp = Blueprint('adoption', __name__, url_prefix='/site')
 
 @bp.route('/adoption', methods=('GET', 'POST'))
 def adoption():
-    return render_template('site/adoption.html', posts="")
+    return render_template('site/adoption.html', pets=getPetsForAdoption())
