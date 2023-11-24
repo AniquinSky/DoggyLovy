@@ -37,7 +37,7 @@ Activar el entorno:
 
 Ya dentro del entorno instalamos flask y dependencias:
 ```
-pip install Flask psycopg2-binary yagmail[all]
+pip install Flask psycopg2-binary flask-socketio yagmail[all]
 ```
 
 Levantar ambiente :
