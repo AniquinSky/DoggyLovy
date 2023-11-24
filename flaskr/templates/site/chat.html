@@ -11,7 +11,7 @@
     <p>Chat en linea con {{ other_user_id }}.</p>
     <div id="chat-history">
       {% for message in chat_history %}
-        {% if message[0] != g.user_id %}
+        {% if message[0] == g.user_id %}
           <p style="color: white; background-color: #03b1fc">{{ message[2] }}</p>
         {% else %}
           <p style="color: black; background-color: #e8f5fa">{{ message[2] }}</p>
