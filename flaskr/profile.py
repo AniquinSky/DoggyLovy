@@ -9,7 +9,7 @@ bp = Blueprint('profile', __name__, url_prefix='/site')
 
 @bp.route('/profile', methods=('GET', 'POST'))
 def myProfile():
-    return render_template('site/profile.html', pets = getUserPets())
+    return render_template('site/profile.html', pets = getUserPets(), fotoPerfil = getUserProfilePicture())
 
 def getUserProfilePicture():
     """Get user's profile picture
