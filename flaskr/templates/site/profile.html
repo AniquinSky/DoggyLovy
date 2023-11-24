@@ -31,7 +31,7 @@
             <!-- Sección de Mascotas -->
             <div class="col-lg-8">
                 <div class="mb-5">
-                    <h3 class="mb-4">Mascotas de <span>{{ g.user[0] }}</span></h3>
+                    <h3 class="mb-4">Mascotas de <span>{{ g.user }}</span></h3>
                     {% for pet in pets %}
                     <div class="d-flex align-items-center border-bottom mb-3 pb-3">
                         <img class="img-fluid" src="data:image/jpg;base64,{{ pet[2] }}" style="width: 80px; height: 80px;" alt="">

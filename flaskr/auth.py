@@ -77,6 +77,7 @@ def register():
             if error is None:
                 session.clear()
                 session['user_id'] = username
+                session['user_name'] = personName
                 return redirect(url_for("index"))
 
         flash(error)
@@ -91,19 +92,27 @@ def login():
         connDB = db.get_db()
         cur = connDB.cursor()
         error = None
-        cur.execute(
-            "SELECT id_usuario, password FROM usuario WHERE id_usuario = %s",
-            (username,)
-        )
-        user = cur.fetchone()
-        cur.close()
-        db.close_db()
+
+        try:
+            cur.execute(
+                "SELECT id_usuario, password, nom_usuario FROM usuario WHERE id_usuario = %s",
+                (username,)
+            )
+            user = cur.fetchone()
+        except Exception as e:
+            print(e)
+            error = 'Ocurrio un error inesperado. Intentelo de nuevo mas tarde.'
+        finally:
+            cur.close()
+            db.close_db()
 
         # Como medida de seguridad basica se muestra el mismo mensaje si el
         # nombre de usuario o contrasena son incorrectos.
         # Esto porque asi una persona con intenciones maliciosas no puede saber
         # cual de los dos datos esta mal.
-        if user is None:
+        if error is not None:
+            error = 'Ocurrio un error inesperado. Intentelo de nuevo mas tarde.'
+        elif user is None:
             error = 'Nombre de usuario o contrasena incorrecto.'
         elif not check_password_hash(user[1], password):
             error = 'Nombre de usuario o contrasena incorrecto.'
@@ -111,6 +120,7 @@ def login():
         if error is None:
             session.clear()
             session['user_id'] = user[0]
+            session['user_name'] = user[2]
             return redirect(url_for('index'))
 
         flash(error)
@@ -124,17 +134,8 @@ def load_logged_in_user():
     if user_id is None:
         g.user = None
     else:
-        connDB = db.get_db()
-        cur = connDB.cursor()
-        cur.execute(
-            'SELECT nom_usuario FROM usuario WHERE id_usuario = %s', (user_id,)
-        )
-        g.user = cur.fetchone()
+        g.user = session.get('user_name')
         g.user_id = user_id
-
-        cur.close()
-        db.close_db()
-
         g.pet_id = session.get('current_pet_id')
         g.pet_name = session.get('current_pet_name')
 
