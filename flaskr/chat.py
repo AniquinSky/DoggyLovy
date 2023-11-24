@@ -5,14 +5,14 @@ import flaskr.db as db
 
 bp = Blueprint('chat', __name__, url_prefix='/chat')
 
-@bp.route('/<string:other_user_id>')
-def chat(other_user_id):
+@bp.route('/chatWith-<string:other_user_id>')
+def chatRoom(other_user_id):
     chat_room_id = generateChatRoomId(g.user_id, other_user_id)
     connDB = db.get_db()
     cur = connDB.cursor()
     try:
         cur.execute(
-            "INSERT INTO chats VALUES (%s, %s, %s)",
+            "INSERT INTO chats VALUES (%s, %s, %s, default)",
             (chat_room_id, g.user_id, other_user_id),
         )
         connDB.commit()
@@ -26,14 +26,11 @@ def chat(other_user_id):
         cur.close()
         db.close_db()
 
-    chat_history = getChatHistory(chat_room_id)
-    print(chat_history)
-
     return render_template(
             'site/chat.html',
             other_user_id = other_user_id,
             chat_room_id = chat_room_id,
-            chat_history = chat_history
+            chat_history = getChatHistory(chat_room_id)
             )
 
 @bp.route('/chatsList')
@@ -55,7 +52,7 @@ def getChats():
         chats = cur.fetchall()
     except Exception as e:
         print(e)
-        chats = None
+        chats = []
         flash('Ocurrio un error inesperado al obtener la lista de chats. Intentelo de nuevo mas tarde.')
     finally:
         cur.close()
@@ -70,13 +67,13 @@ def getChatHistory(room):
     cur = connDB.cursor()
     try:
         cur.execute(
-            "SELECT id_remitente, id_destinatario, mensaje FROM mensajes WHERE id_sala = %s",
+            "SELECT id_remitente, id_destinatario, mensaje FROM mensajes WHERE id_sala = %s ORDER BY id_mensaje ASC",
             (room,),
         )
         messages = cur.fetchall()
     except Exception as e:
         print(e)
-        messages = None
+        messages = []
         flash('Ocurrio un error inesperado al obtener el historial del chat. Intentelo de nuevo mas tarde.')
     finally:
         cur.close()
