@@ -81,3 +81,35 @@ def getUserAmountOfPetsForMatch():
         db.close_db()
 
     return amount
+
+@bp.route('/like/<string:user_id>', methods=['POST'])
+def like_user(user_id):
+    connDB = db.get_db()
+    cur = connDB.cursor()
+    try:
+        cur.execute('UPDATE usuario SET likes = likes + 1 WHERE id_usuario = %s', (user_id,))
+        flash('Has dado like', 'success')
+        connDB.commit()
+    except Exception as e:
+        print(e)
+        connDB.rollback()
+    finally:
+        cur.close()
+        db.close_db()
+    return redirect(url_for('profile.myProfile'))
+
+@bp.route('/dislike/<string:user_id>', methods=['POST'])
+def dislike_user(user_id):
+    connDB = db.get_db()
+    cur = connDB.cursor()
+    try:
+        cur.execute('UPDATE usuario SET dislikes = dislikes + 1 WHERE id_usuario = %s', (user_id,))
+        flash('Has dado dsilike', 'success')
+        connDB.commit()
+    except Exception as e:
+        print(e)
+        connDB.rollback()
+    finally:
+        cur.close()
+        db.close_db()
+    return redirect(url_for('profile.myProfile'))
