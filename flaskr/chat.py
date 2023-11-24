@@ -5,14 +5,14 @@ import flaskr.db as db
 
 bp = Blueprint('chat', __name__, url_prefix='/chat')
 
-@bp.route('/<string:other_user_id>')
-def chat(other_user_id):
+@bp.route('/chatWith-<string:other_user_id>')
+def chatRoom(other_user_id):
     chat_room_id = generateChatRoomId(g.user_id, other_user_id)
     connDB = db.get_db()
     cur = connDB.cursor()
     try:
         cur.execute(
-            "INSERT INTO chats VALUES (%s, %s, %s)",
+            "INSERT INTO chats VALUES (%s, %s, %s, default)",
             (chat_room_id, g.user_id, other_user_id),
         )
         connDB.commit()
