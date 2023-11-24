@@ -96,6 +96,9 @@ def getPetsForAdoption():
     [6] descripcion,
     [7] imagen, ready for render it in html with data:image/jpg;base64
     [8] id_dueno
+    [9] para_match
+    [10] likes,
+    [11] dislikes,
     """
     connDB = db.get_db()
     cur = connDB.cursor()
@@ -108,7 +111,7 @@ def getPetsForAdoption():
         results = cur.fetchall()
         for record in results:
             image_in_base64 = base64.b64encode(record[7]).decode('utf-8')
-            pets.append((record[0], record[1], record[2], record[3], record[4], record[5], record[6], image_in_base64, record[8]))
+            pets.append((record[0], record[1], record[2], record[3], record[4], record[5], record[6], image_in_base64, record[8], record[9], record[10], record[11]))
     except Exception as e:
         print(e)
         pets = None
@@ -131,19 +134,19 @@ def getPetsForMatch():
     [6] descripcion,
     [7] imagen, ready for render it in html with data:image/jpg;base64
     [8] id_dueno
+    [9] para_match
+    [10] likes,
+    [11] dislikes,
     """
     connDB = db.get_db()
     cur = connDB.cursor()
     pets = []
     try:
-        cur.execute(
-            'SELECT * FROM mascota WHERE para_match=TRUE AND id_dueno!=%s',
-            (g.user_id,)
-        )
+        cur.execute('SELECT * FROM mascota WHERE para_match=TRUE AND id_dueno != %s', (g.user_id,))
         results = cur.fetchall()
         for record in results:
             image_in_base64 = base64.b64encode(record[7]).decode('utf-8')
-            pets.append((record[0], record[1], record[2], record[3], record[4], record[5], record[6], image_in_base64, record[8]))
+            pets.append((record[0], record[1], record[2], record[3], record[4], record[5], record[6], image_in_base64, record[8], record[9], record[10], record[11]))
     except Exception as e:
         print(e)
         pets = None
@@ -152,3 +155,35 @@ def getPetsForMatch():
         db.close_db()
 
     return pets
+
+@bp.route('/like/<int:id>', methods=['POST'])
+def like_pet(id):
+    connDB = db.get_db()
+    cur = connDB.cursor()
+    try:
+        cur.execute('UPDATE mascota SET likes = likes + 1 WHERE id_mascota = %s', (id,))
+        flash('Has dado like', 'success')
+        connDB.commit()
+    except Exception as e:
+        print(e)
+        connDB.rollback()
+    finally:
+        cur.close()
+        db.close_db()
+    return redirect(url_for('profile.myProfile'))
+
+@bp.route('/dislike/<int:id>', methods=['POST'])
+def dislike_pet(id):
+    connDB = db.get_db()
+    cur = connDB.cursor()
+    try:
+        cur.execute('UPDATE mascota SET dislikes = dislikes + 1 WHERE id_mascota = %s', (id,))
+        flash('Has dado dsilike', 'success')
+        connDB.commit()
+    except Exception as e:
+        print(e)
+        connDB.rollback()
+    finally:
+        cur.close()
+        db.close_db()
+    return redirect(url_for('profile.myProfile'))
