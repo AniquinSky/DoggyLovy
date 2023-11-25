@@ -4,7 +4,6 @@ from flask import (
 
 import flaskr.db as db
 import base64
-##from psycopg2 import Binary as to_binary
 
 bp = Blueprint('profile', __name__, url_prefix='/site')
 
@@ -55,7 +54,7 @@ def getUserPets():
     cur = connDB.cursor()
 
     try:
-        cur.execute('SELECT id_mascota, nom_mascota, imagen, raza, para_match, likes, dislikes FROM mascota WHERE id_dueno=%s', (g.user_id,))
+        cur.execute('SELECT id_mascota, nom_mascota, imagen, raza, para_match, likes, dislikes FROM mascota WHERE id_dueno=%s ORDER BY id_mascota ASC', (g.user_id,))
         results = cur.fetchall()
         for record in results:
             image_in_base64 = base64.b64encode(record[2]).decode('utf-8')
