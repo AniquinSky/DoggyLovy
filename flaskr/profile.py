@@ -28,6 +28,7 @@ def getUserProfilePicture():
         profile_picture = base64.b64encode(profile_picture[0]).decode('utf-8')
     except Exception as e:
         print(e)
+        flash('Ocurrio un error al obtener la imagen de perfil.')
         profile_picture = None
     finally:
         cur.close()
@@ -61,7 +62,8 @@ def getUserPets():
             pets.append((record[0], record[1], image_in_base64, record[3], record[4], record[5], record[6]))
     except Exception as e:
         print(e)
-        pets = None
+        flash('Ocurrio un error al obtener mascotas del usuario. Intentelo de nuevo mas tarde.')
+        pets = []
     finally:
         cur.close()
         db.close_db()
