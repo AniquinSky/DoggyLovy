@@ -38,6 +38,11 @@
           {% set ns.previous_sender = message[0] %}
           <script>previous_sender = '{{message[0]}}'</script>
       {% endfor %}
+      <div class="report-problem-button">
+          <form action="{{ url_for('auth.reportar_problema', id=other_user_id) }}" method="post">
+              <button type="submit" class="btn btn-danger">Reportar problema con la cuenta</button>
+          </form>
+      </div>
   </div>
 
   <div class="input-group mb-3">
@@ -80,6 +85,11 @@
         display: inline-block;
         padding-top: 1%;
         padding-bottom: 1%;
+    }
+
+    .report-problem-button {
+        text-align: center;
+        margin-top: 10px;
     }
   </style>
 

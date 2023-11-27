@@ -95,7 +95,7 @@ def login():
 
         try:
             cur.execute(
-                "SELECT id_usuario, password, nom_usuario FROM usuario WHERE id_usuario = %s",
+                "SELECT id_usuario, password, nom_usuario, status FROM usuario WHERE id_usuario = %s",
                 (username,)
             )
             user = cur.fetchone()
@@ -116,6 +116,8 @@ def login():
             error = 'Nombre de usuario o contrasena incorrecto.'
         elif not check_password_hash(user[1], password):
             error = 'Nombre de usuario o contrasena incorrecto.'
+        elif user[3] == 3:
+            error = 'La cuenta está bloqueada.'
 
         if error is None:
             session.clear()
@@ -173,3 +175,24 @@ def enviar_correo(email, usuario):
     mensaje = 'Hola ' + username + ' tu cuenta fue creada con exito!!' + '\n' + html
     yag.send(destinatario, asunto, mensaje)
     yag.close()
+
+@bp.route('/reportar_problema/<string:id>', methods=('POST',))
+#@login_required
+def reportar_problema(id):
+    #user_id = session.get('user_id')
+    connDB = db.get_db()
+    cur = connDB.cursor()
+
+    try:
+        # Incrementar el contador de status
+        cur.execute("UPDATE usuario SET status = status + 1 WHERE id_usuario = %s", (id,))
+        connDB.commit()
+        flash('Reporte enviado. Se está investigando el problema.')
+    except Exception as e:
+        print(e)
+        flash('Ocurrió un error al procesar el reporte. Intenta de nuevo más tarde.')
+    finally:
+        cur.close()
+        db.close_db()
+
+    return redirect(url_for('index'))

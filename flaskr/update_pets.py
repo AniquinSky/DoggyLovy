@@ -8,14 +8,14 @@ bp = Blueprint('update_pets', __name__, url_prefix='/update_pets')
 
 @bp.route('/update_pets/<int:id>', methods=('GET', 'POST'))
 def update_pets(id):
+    connDB = db.get_db()
+    cur = connDB.cursor()
+
     if request.method == 'POST':
-        print(request.form)
         descripcion = request.form['descripcion']
         condicion_medica = request.form['condicionMedica']
         edad = request.form['edad']
         
-        connDB = db.get_db()
-        cur = connDB.cursor()
         try:
             cur.execute(
                 "UPDATE mascota SET condicion_medica = %s, edad = %s, descripcion = %s WHERE id_mascota = %s",
@@ -37,4 +37,14 @@ def update_pets(id):
 
         return redirect(url_for('profile.myProfile'))
 
-    return render_template('pets/update_pets.html')
+    else:
+        cur.execute("SELECT condicion_medica, edad, descripcion FROM mascota WHERE id_mascota = %s", (id,))
+        pet_data = cur.fetchone()
+        cur.close()
+        db.close_db()
+
+        if pet_data:
+            return render_template('pets/update_pets.html', pet_data=pet_data)
+        else:
+            flash('Mascota no encontrada', 'error')
+            return redirect(url_for('profile.myProfile'))

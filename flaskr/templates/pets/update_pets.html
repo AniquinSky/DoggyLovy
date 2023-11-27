@@ -27,11 +27,12 @@
                                 placeholder="Condición Médica de la mascota"
                                 maxlength="100"
                                 required
+                                value="{{ pet_data[0] }}"
                                 oninvalid="this.setCustomValidity('Indique la condición médica de su mascota.')"
                                 oninput="this.setCustomValidity('')"
                             />
                         </div>
-
+                        
                         <div class="form-group">
                             <label for="edad" style="color: black;">Edad:</label>
                             <input
@@ -43,11 +44,12 @@
                                 required
                                 min="0"
                                 max="50"
+                                value="{{ pet_data[1] }}"
                                 oninvalid="this.setCustomValidity('Indique la edad de su mascota.')"
                                 oninput="this.setCustomValidity('')"
                             />
                         </div>
-
+                        
                         <div class="form-group">
                             <label for="descripcion" style="color: black;">Descripción de la Mascota:</label>
                             <input
@@ -56,11 +58,11 @@
                                 class="form-control border-0 p-4"
                                 placeholder="Descripción de la mascota"
                                 required
+                                value="{{ pet_data[2] }}"
                                 oninvalid="this.setCustomValidity('Ingrese una descripción de su mascota.')"
                                 oninput="this.setCustomValidity('')"
-                          />
+                            />
                         </div>
-
                         <div>
                             <button type="submit" class="btn btn-dark btn-block border-0 py-3">Actualizar Datos de Mascota</button>
                         </div>
