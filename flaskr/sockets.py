@@ -3,6 +3,7 @@ from flask import (
 )
 from flask_socketio import SocketIO, Namespace, send, emit, join_room, leave_room
 import flaskr.db as db
+from flaskr.pets import likePet, dislikePet
 
 socketio = SocketIO()
 
@@ -28,6 +29,14 @@ class MyNamespace(Namespace):
         print(data)
         recordMessage(data['room'], data['sender'], data['addresse'], data['message'])
         emit('chat', { 'message': data['message'], 'sender': data['sender'] }, to=data['room'], broadcast = True)
+
+    def on_petValoration(self, data):
+        print(data)
+        if data['valoration'] == 'like':
+            likePet(data['petId'])
+        else:
+            dislikePet(data['petId'])
+        emit('response', { 'message': 'Received: ' + data['valoration'] + ' and ' + data['petId'] })
 
 socketio.on_namespace(MyNamespace('/socket'))
 

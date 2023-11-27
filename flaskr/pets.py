@@ -159,8 +159,7 @@ def getPetsForMatch():
 
     return pets
 
-@bp.route('/like/<int:id>', methods=['POST'])
-def like_pet(id):
+def likePet(id):
     connDB = db.get_db()
     cur = connDB.cursor()
     try:
@@ -175,8 +174,7 @@ def like_pet(id):
         db.close_db()
     return redirect(url_for('profile.myProfile'))
 
-@bp.route('/dislike/<int:id>', methods=['POST'])
-def dislike_pet(id):
+def dislikePet(id):
     connDB = db.get_db()
     cur = connDB.cursor()
     try:
