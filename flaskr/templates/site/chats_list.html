@@ -5,18 +5,29 @@
 {% endblock %}
 
 {% block content %}
-  Aqui va la lista de chats.
-  {% for chat in chats %}
-    <div>
-      {% if chat[1] == g.user_id %}
-        <p>Chat con: {{ chat[2] }}</p>
-        <p>Iniciado por {{ chat[1] }} en {{ chat[3] }}</p>
-        <a href="{{ url_for('chat.chatRoom', other_user_id=chat[2])}}">Abrir chat.</a>
-      {% else %}
-        <p>Chat con: {{ chat[1] }}</p>
-        <p>Iniciado por {{ chat[1] }} en {{ chat[3] }}</p>
-        <a href="{{ url_for('chat.chatRoom', other_user_id=chat[1])}}">Abrir chat.</a>
-      {% endif %}
+  <!--Aqui va la lista de chats.-->
+  <div class="container pt-5">
+    <div class="d-flex flex-column text-center mb-2 pt-2">
+        <h1 class="display-4 m-0"><span class="text-primary">CHAT</span></h1>
     </div>
-  {% endfor %}
+    <div class="row pb-3">
+    {% for chat in chats %}
+    <div class="col-lg-4 mb-4">
+      <div class="card border-0 mb-2">
+          <div class="bg-light p-3">
+              {% if chat[1] == g.user_id %}
+                  <p>Chat con: {{ chat[2] }}</p>
+                  <p>Iniciado por {{ chat[1] }} en {{ chat[3] }}</p>
+                  <a href="{{ url_for('chat.chatRoom', other_user_id=chat[2])}}">Abrir chat.</a>
+              {% else %}
+                  <p>Chat con: {{ chat[1] }}</p>
+                  <p>Iniciado por {{ chat[1] }} en {{ chat[3] }}</p>
+                  <a href="{{ url_for('chat.chatRoom', other_user_id=chat[1])}}">Abrir chat.</a>
+              {% endif %}
+          </div>
+      </div>
+  </div>
+    {% endfor %}
+    </div>
+  </div>  
 {% endblock %}
