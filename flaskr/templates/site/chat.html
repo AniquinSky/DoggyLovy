@@ -9,24 +9,39 @@
   <h1 class="text-center">Chat en línea con {{ other_user_id }}</h1>
 
   <div id="chat-history" class="chat-history">
-      {% set previous_sender = None %}
+      <script>let previous_sender = null</script>
+      {% set ns = namespace(previous_sender = None) %}
       {% for message in chat_history %}
-          {% if previous_sender == message[0] %}
-              <div class="message message-user-is-sender">
-                  <span class="message-text">{{ message[2] }}</span>
-              </div>
+          {% if ns.previous_sender == message[0] %}
+              {% if message[0] == g.user_id %}
+                  <div class="message message-user-is-sender">
+                      <span class="message-text">{{ message[2] }}</span>
+                  </div>
+              {% else %}
+                  <div class="message message-user-is-addresse">
+                      <span class="message-text">{{ message[2] }}</span>
+                  </div>
+              {% endif %}
           {% else %}
-              <div class="message {% if message[0] == g.user_id %}message-user-is-sender{% else %}message-user-is-addressee{% endif %}">
-                  <span class="message-sender">{{ message[1] }}:</span>
-                  <span class="message-text">{{ message[2] }}</span>
-              </div>
+              {% if message[0] == g.user_id %}
+                  <div class="message message-user-is-sender">
+                      <span class="message-sender">{{ message[0] }}:</span>
+                      <span class="message-text">{{ message[2] }}</span>
+                  </div>
+              {% else %}
+                  <div class="message message-user-is-addresse">
+                      <span class="message-sender">{{ message[0] }}:</span>
+                      <span class="message-text">{{ message[2] }}</span>
+                  </div>
+              {% endif %}
           {% endif %}
-          {% set previous_sender = message[0] %}
+          {% set ns.previous_sender = message[0] %}
+          <script>previous_sender = '{{message[0]}}'</script>
       {% endfor %}
   </div>
 
   <div class="input-group mb-3">
-      <textarea id="message" class="form-control" placeholder="Escriba su mensaje aquí..." maxlength="255"></textarea>
+      <textarea id="message" class="form-control input-message" placeholder="Escriba su mensaje aquí..." maxlength="255"></textarea>
       <div class="input-group-append">
           <button id="send-message-button" class="btn btn-primary" onclick="sendMessage()">Enviar</button>
       </div>
@@ -34,15 +49,37 @@
 </div>
 
   <style>
+    .chat-history {
+      overflow: scroll;
+      height: 580px;
+    }
     .message {
         background-color: rgb(253, 180, 97);
         padding: 8px;
         margin-bottom: 5px;
         border-radius: 5px;
+        font-size: 20px;
+        color: black;
+    }
+
+    .input-message {
+        font-size: 20px;
+        color: black;
     }
 
     .message-user-is-sender {
         background-color: #d3ffd3;
+        margin-left: 40%;
+    }
+
+    .message-user-is-addresse {
+        margin-right: 40%;
+    }
+
+    .message-text {
+        display: inline-block;
+        padding-top: 1%;
+        padding-bottom: 1%;
     }
   </style>
 
@@ -62,24 +99,35 @@
         console.log('Disconnected from server');
       });
 
-      socket.on('response', (data) => {
+      socket.on('chat', (data) => {
         console.log('Received response:', data);
       });
 
       socket.on('chat', (data) => {
-        const paragraph = document.createElement('p')
-        const span = document.createElement('SPAN');
-        const node = document.createTextNode(data.message)
-        span.setAttribute("class", "message-text")
-        span.appendChild(node)
-        paragraph.appendChild(span)
-        if (data.sender == '{{ g.user_id }}') {
-          paragraph.setAttribute("class", "chat-message message-user-is-sender")
+        const div = document.createElement('div')
+        const messageSpan = document.createElement('SPAN');
+        messageSpan.setAttribute("class", "message-text")
+        if ( previous_sender == data.sender) {
+          if ( data.sender == '{{ g.user_id }}') {
+            div.setAttribute("class", "message message-user-is-sender")
+          }
+          else {
+            div.setAttribute("class", "message message-user-is-addresse")
+          }
+          messageSpan.appendChild(document.createTextNode(data.message))
+          div.appendChild(messageSpan)
         }
         else {
-          paragraph.setAttribute("class", "chat-message message-user-is-addresse")
+          if (data.sender == '{{ g.user_id }}') {
+            div.setAttribute("class", "message message-user-is-sender")
+          }
+          else {
+            div.setAttribute("class", "message message-user-is-addresse")
+          }
+          messageSpan.appendChild(document.createTextNode(data.sender + ': ' + data.message))
+          div.appendChild(messageSpan)
         }
-        chatHistory.appendChild(paragraph)
+        chatHistory.appendChild(div)
       });
 
       function sendMessage() {
