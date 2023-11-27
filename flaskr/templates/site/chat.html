@@ -46,13 +46,16 @@
 
       socket.on('chat', (data) => {
         const paragraph = document.createElement('p')
+        const span = document.createElement('SPAN');
         const node = document.createTextNode(data.message)
-        paragraph.appendChild(node)
+        span.setAttribute("class", "message-text")
+        span.appendChild(node)
+        paragraph.appendChild(span)
         if (data.sender == '{{ g.user_id }}') {
-          paragraph.style = "color: white; background-color: #03b1fc"
+          paragraph.setAttribute("class", "chat-message message-user-is-sender")
         }
         else {
-          paragraph.style = "color: black; background-color: #e8f5fa"
+          paragraph.setAttribute("class", "chat-message message-user-is-addresse")
         }
         chatHistory.appendChild(paragraph)
       });

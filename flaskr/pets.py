@@ -114,7 +114,8 @@ def getPetsForAdoption():
             pets.append((record[0], record[1], record[2], record[3], record[4], record[5], record[6], image_in_base64, record[8], record[9], record[10], record[11]))
     except Exception as e:
         print(e)
-        pets = None
+        flash('Ocurrio un error al obtener las mascotas para adopcion. Intentelo de nuevo mas tarde.')
+        pets = []
     finally:
         cur.close()
         db.close_db()
@@ -142,14 +143,16 @@ def getPetsForMatch():
     cur = connDB.cursor()
     pets = []
     try:
-        cur.execute('SELECT * FROM mascota WHERE para_match=TRUE AND id_dueno != %s', (g.user_id,))
+        cur.execute('SELECT especie FROM mascota WHERE id_mascota = %s', (g.pet_id,))
+        curr_pet_species = cur.fetchone()[0]
+        cur.execute('SELECT * FROM mascota WHERE para_match=TRUE AND id_dueno != %s AND especie = %s', (g.user_id, curr_pet_species))
         results = cur.fetchall()
         for record in results:
             image_in_base64 = base64.b64encode(record[7]).decode('utf-8')
             pets.append((record[0], record[1], record[2], record[3], record[4], record[5], record[6], image_in_base64, record[8], record[9], record[10], record[11]))
     except Exception as e:
         print(e)
-        pets = None
+        pets = []
     finally:
         cur.close()
         db.close_db()
