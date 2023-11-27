@@ -9,10 +9,19 @@
   <h1 class="text-center">Chat en línea con {{ other_user_id }}</h1>
 
   <div id="chat-history" class="chat-history">
+      {% set previous_sender = None %}
       {% for message in chat_history %}
-          <div class="message {% if message[0] == g.user_id %}message-user-is-sender{% else %}message-user-is-addressee{% endif %}">
-              <span class="message-text">{{  message[2] }}</span>
-          </div>
+          {% if previous_sender == message[0] %}
+              <div class="message message-user-is-sender">
+                  <span class="message-text">{{ message[2] }}</span>
+              </div>
+          {% else %}
+              <div class="message {% if message[0] == g.user_id %}message-user-is-sender{% else %}message-user-is-addressee{% endif %}">
+                  <span class="message-sender">{{ message[1] }}:</span>
+                  <span class="message-text">{{ message[2] }}</span>
+              </div>
+          {% endif %}
+          {% set previous_sender = message[0] %}
       {% endfor %}
   </div>
 
@@ -26,7 +35,7 @@
 
   <style>
     .message {
-        background-color: #e0e0e0;
+        background-color: rgb(253, 180, 97);
         padding: 8px;
         margin-bottom: 5px;
         border-radius: 5px;
