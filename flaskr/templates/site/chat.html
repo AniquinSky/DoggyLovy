@@ -11,7 +11,7 @@
   <div id="chat-history" class="chat-history">
       {% for message in chat_history %}
           <div class="message {% if message[0] == g.user_id %}message-user-is-sender{% else %}message-user-is-addressee{% endif %}">
-              <span class="message-text">{{ message[2] }}</span>
+              <span class="message-text">{{  message[2] }}</span>
           </div>
       {% endfor %}
   </div>
@@ -24,19 +24,20 @@
   </div>
 </div>
 
-<style>
-  .message {
-      background-color: #e0e0e0;
-      padding: 8px;
-      margin-bottom: 5px;
-      border-radius: 5px;
-  }
+  <style>
+    .message {
+        background-color: #e0e0e0;
+        padding: 8px;
+        margin-bottom: 5px;
+        border-radius: 5px;
+    }
 
-  .message-user-is-sender {
-      background-color: #d3ffd3;
-  }
-</style>
+    .message-user-is-sender {
+        background-color: #d3ffd3;
+    }
+  </style>
 
+    <script src="https://cdn.socket.io/4.1.2/socket.io.min.js"></script>
     <script>
       const room = '{{ chat_room_id }}'
       const socket = io('http://127.0.0.1:5000/socket');
