@@ -99,6 +99,7 @@ def login():
                 (username,)
             )
             user = cur.fetchone()
+            print(user)
         except Exception as e:
             print(e)
             error = 'Ocurrio un error inesperado. Intentelo de nuevo mas tarde.'
@@ -110,14 +111,14 @@ def login():
         # nombre de usuario o contrasena son incorrectos.
         # Esto porque asi una persona con intenciones maliciosas no puede saber
         # cual de los dos datos esta mal.
-        if error is not None:
+        if user[3] == 3:
+            error = 'La cuenta está bloqueada.'
+        elif error is not None:
             error = 'Ocurrio un error inesperado. Intentelo de nuevo mas tarde.'
         elif user is None:
             error = 'Nombre de usuario o contrasena incorrecto.'
         elif not check_password_hash(user[1], password):
             error = 'Nombre de usuario o contrasena incorrecto.'
-        elif user[3] == 3:
-            error = 'La cuenta está bloqueada.'
 
         if error is None:
             session.clear()
