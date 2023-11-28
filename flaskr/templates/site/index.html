@@ -1,297 +1,230 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  {% block title %}{% endblock %}
+{% block title %}{% endblock %}
 
-  {% if g.user %}
+{% if g.user %}
     <!--<a class="action" href="{{ url_for('inicio.create') }}">New</a>-->
-  {% endif %}
+{% endif %}
 {% endblock %}
 
 {% block content %}
 {% if g.user and not g.user_verified %}
     <div class="container my-5">
-      <div class="row justify-content-center">
-        <div class="col-md-8 text-center">
-          <h2 class="text-danger">Tu cuenta aún no ha sido verificada</h2>
-          <p class="lead">Por favor, verifica tu cuenta haciendo clic en el enlace que se envió a tu correo electrónico.</p>
-          <p class="lead">Si no has recibido el correo de verificación, revisa tu carpeta de correo no deseado o solicita otro enlace.</p>
-          <form action="{{ url_for('auth.request_verification') }}" method="post">
-            <button type="submit" class="btn btn-primary">Solicitar Verificación</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  {% endif %}
-  
-  <!-- Carousel Start -->
-  <div class="container-fluid p-0">
-    <div id="header-carousel" class="carousel slide" data-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-              <img class="w-100" src = "{{ url_for('static', filename='img/carousel-1.jpg')}}"alt="Image">           
-                <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                    <div class="p-3" style="max-width: 900px;">
-                        <h3 class="text-white mb-3 d-none d-sm-block">Porque todos merecen encontrar </h3>
-                        <h1 class="display-3 text-white mb-3"> a su compañero </h1>
-                        <h5 class="text-white mb-3 d-none d-sm-block">peludo perfecto.</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img class="w-100" src = "{{ url_for('static', filename='img/carousel-2.jpg')}}"alt="Image">
-                <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                    <div class="p-3" style="max-width: 900px;">
-                        <h3 class="text-white mb-3 d-none d-sm-block">Conectamos </h3>
-                        <h1 class="display-3 text-white mb-3"> corazones peludos </h1>
-                        <h5 class="text-white mb-3 d-none d-sm-block">en busca de amor.</h5>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <a class="carousel-control-prev" href="#header-carousel" data-slide="prev">
-            <div class="btn btn-primary rounded" style="width: 45px; height: 45px;">
-                <span class="carousel-control-prev-icon mb-n2"></span>
-            </div>
-        </a>
-        <a class="carousel-control-next" href="#header-carousel" data-slide="next">
-            <div class="btn btn-primary rounded" style="width: 45px; height: 45px;">
-                <span class="carousel-control-next-icon mb-n2"></span>
-            </div>
-        </a>
-    </div>
-  </div>
-  <!-- Carousel End -->
-
-  <!-- Services Start -->
-  <div class="container-fluid bg-light pt-5">
-    <div class="container py-5">
-        <div class="d-flex flex-column text-center mb-5">
-            <h4 class="text-secondary mb-3">Nuestros Servicios</h4>
-            <h1 class="display-4 m-0"><span class="text-primary">Conectando  </span> corazones caninos </h1>
-        </div>
-        <div class="row pb-3">
-            <div class="col-md-6 col-lg-4 mb-4">
-                <div class="d-flex flex-column text-center bg-white mb-2 p-3 p-sm-5">
-                    <h3 class="flaticon-house display-3 font-weight-normal text-secondary mb-3"></h3>
-                    <h3 class="mb-3">Control de acceso de usuario</h3>
-                    <p>Tu privacidad y seguridad son nuestra principal preocupación. En nuestro proceso de registro de usuarios, 
-                      empleamos las últimas medidas de seguridad y encriptación para proteger tus datos personales. 
-                      Puedes registrarte con total tranquilidad, sabiendo que tu información está resguardada y nunca será compartida sin tu consentimiento.</p>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4 mb-4">
-                <div class="d-flex flex-column text-center bg-white mb-2 p-3 p-sm-5">
-                    <h3 class="flaticon-food display-3 font-weight-normal text-secondary mb-3"></h3>
-                    <h3 class="mb-3">Actualizacion continua de datos las mascota</h3>
-                    <p>Nuestro sistema está diseñado para hacer que la actualización de los detalles de tu peludo amigo sea fácil y rápida. 
-                      Además, tus datos personales y la información de tu mascota están en buenas manos: 
-                      empleamos rigurosas medidas de seguridad para proteger toda la información.</p>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4 mb-4">
-                <div class="d-flex flex-column text-center bg-white mb-2 p-3 p-sm-5">
-                    <h3 class="flaticon-grooming display-3 font-weight-normal text-secondary mb-3"></h3>
-                    <h3 class="mb-3">Bloqueo de cuentas maliciosas</h3>
-                    <p>Tu seguridad en línea es nuestra principal prioridad. En nuestra plataforma, invertimos en tecnología 
-                      avanzada para detectar y bloquear cuentas maliciosas de manera proactiva. Nuestro equipo de expertos en seguridad trabaja 
-                      incansablemente para mantener un entorno seguro y protegido para todos nuestros usuarios.</p>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4 mb-4">
-                <div class="d-flex flex-column text-center bg-white mb-2 p-3 p-sm-5">
-                    <h3 class="flaticon-cat display-3 font-weight-normal text-secondary mb-3"></h3>
-                    <h3 class="mb-3">MATCH</h3>
-                    <p>Las mascotas entraran a un algoritmo para encontrar pareja compatible segun varios criterios, como lo son el peso, la raza y el tamaño.</p>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4 mb-4">
-                <div class="d-flex flex-column text-center bg-white mb-2 p-3 p-sm-5">
-                    <h3 class="flaticon-dog display-3 font-weight-normal text-secondary mb-3"></h3>
-                    <h3 class="mb-3">ADOPCION DE MASCOTAS</h3>
-                    <p>Puedes poner en adopcion una mascota y adoptar en vez de buscar un match. Solo tienes que ponerte en contacto por medio del chat con la persona.</p>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-4 mb-4">
-                <div class="d-flex flex-column text-center bg-white mb-2 p-3 p-sm-5">
-                    <h3 class="flaticon-vaccine display-3 font-weight-normal text-secondary mb-3"></h3>
-                    <h3 class="mb-3">VALORACION DE MASCOTAS</h3>
-                    <p>Segun la experiencia de los usuarios con las mascotas de otros usuarios, estos podran otorgarte una valoracion para indicar la experiencia que tuvo.</p>
-                </div>
+        <div class="row justify-content-center">
+            <div class="col-md-8 text-center">
+                <h2 class="text-danger">Tu cuenta aún no ha sido verificada</h2>
+                <p class="lead">Por favor, verifica tu cuenta haciendo clic en el enlace que se envió a tu correo electrónico.</p>
+                <p class="lead">Si no has recibido el correo de verificación, revisa tu carpeta de correo no deseado o solicita otro enlace.</p>
+                <form action="{{ url_for('auth.request_verification') }}" method="post">
+                    <button type="submit" class="btn btn-primary">Solicitar Verificación</button>
+                </form>
             </div>
         </div>
     </div>
-  </div>
-  <!-- Services End -->
+{% endif %}
 
-
-  <!-- Features Start -->
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-5">
-                <img class="img-fluid w-100" src="img/feature.jpg" alt="">
-            </div>
-            <div class="col-lg-7 py-5 py-lg-0 px-3 px-lg-5">
-                <h4 class="text-secondary mb-3">¿Por qué escogernos?</h4>
-                <h1 class="display-4 mb-4"><span class="text-primary">Aprendiendo, Creando, </span> Innovando en la Web del Mañana</h1>
-                <p class="mb-4">En cada línea de código, en cada diseño creativo, y en cada idea compartida. 
-                Listos para inspirar, aprender. Estamos unidos por nuestra pasión por la innovación y el conocimiento, 
-                y juntos, estamos creando un espacio digital lleno de oportunidades. Con cada desafío que enfrentamos, 
-                crecemos y evolucionamos. ¡Acompáñanos en este emocionante viaje!"</p>
-            </div>
-        </div>
-    </div>
-  <!-- Features End -->
-
-  <!-- Testimonial Start -->
-  <div class="container-fluid bg-light my-5 p-0 py-5">
-    <div class="container p-0 py-5">
-        <div class="d-flex flex-column text-center mb-5">
-            <h4 class="text-secondary mb-3">Testimonios</h4>
-            <h1 class="display-4 m-0">Nuestros Clientes <span class="text-primary">Dicen</span></h1>
-        </div>
-        <div class="owl-carousel testimonial-carousel">
-            <div class="bg-white mx-3 p-4">
-                <div class="d-flex align-items-end mb-3 mt-n4 ml-n4">
-                    <img class="img-fluid" src = "{{ url_for('static', filename='img/team-1.jpg')}}"style="width: 80px; height: 80px;" alt="">
-                    <div class="ml-3">
-                        <h5>Sofia</h5>
-                        <i>25</i>
-                    </div>
-                </div>
-                <p class="m-0">¡Hola a todos! Soy un amante de los animales que ha decidido darle un giro emocionante a la vida de mi querida mascota. 
-                  Hace poco me uní a esta increíble comunidad que tiene como objetivo principal encontrarle la pareja perfecta a nuestros peludos compañeros.</p>
-            </div>
-            <div class="bg-white mx-3 p-4">
-                <div class="d-flex align-items-end mb-3 mt-n4 ml-n4">
-                    <img class="img-fluid" src = "{{ url_for('static', filename='img/testimonial-3.jpg')}}"style="width: 80px; height: 80px;" alt="">
-                    <div class="ml-3">
-                        <h5>Max</h5>
-                        <i>30</i>
-                    </div>
-                </div>
-                <p class="m-0">Lo sorprendente es ver cómo las conexiones entre mascotas pueden ser tan auténticas y 
-                  especiales como las nuestras. He tenido la oportunidad de interactuar con dueños y sus mascotas, 
-                  compartiendo anécdotas, fotos y, por supuesto, la esperanza de encontrar a esa pareja ideal para Lola.</p>
-            </div>
-            <div class="bg-white mx-3 p-4">
-                <div class="d-flex align-items-end mb-3 mt-n4 ml-n4">
-                  <img class="img-fluid" src = "{{ url_for('static', filename='img/user.jpg')}}"style="width: 80px; height: 80px;" alt="">
-                    <div class="ml-3">
-                        <h5>Alejandro</h5>
-                        <i>28</i>
-                    </div>
-                </div>
-                <p class="m-0">¡Hola a todos! Me llamo Alejandro, tengo 28 años y quiero compartirles mi experiencia emocionante 
-                  al usar esta increíble plataforma para encontrarle pareja a mi adorable mascota.
-                  Mi compañera peluda, Luna, es una gatita juguetona y llena de curiosidad. 
-                  Creo que ha llegado el momento de que encuentre a alguien especial para compartir travesuras y momentos cariñosos. 
-                  Al unirme a esta comunidad, he descubierto un mundo lleno de perfiles fascinantes y dueños que comparten el mismo amor apasionado por sus mascotas.</p>
-            </div>
-            <div class="bg-white mx-3 p-4">
-                <div class="d-flex align-items-end mb-3 mt-n4 ml-n4">
-                    <img class="img-fluid" src = "{{ url_for('static', filename='img/team-2.jpg')}}"style="width: 80px; height: 80px;" alt="">
-                    <div class="ml-3">
-                        <h5>Marta</h5>
-                        <i>30</i>
-                    </div>
-                </div>
-                <p class="m-0">La idea de que Rocky pueda encontrar a alguien especial que comparta su entusiasmo por los juegos y 
-                  los paseos me llena de emoción. Cada día es una nueva oportunidad para descubrir a la pareja perfecta para mi leal amigo de cuatro patas. 
-                  Si eres un amante de los animales como yo, te invito a unirte a esta comunidad única de emparejamiento para mascotas.</p>
-            </div>
-        </div>
-    </div>
-  </div>
-  <!-- Testimonial End -->
-
-  <!-- Footer Start -->
-  <div class="container-fluid bg-dark text-white mt-5 py-5 px-sm-3 px-md-5">
-    <div class="row pt-5">
-        <div class="col-lg-4 col-md-12 mb-5">
-            <h1 class="mb-3 display-5 text-capitalize text-white"><span class="text-primary">Doggy</span>Lovy</h1>
-            <p class="m-0">¿Tu perro merece encontrar el amor verdadero? ¡Entonces esta página es para ti! 
-              En nuestro rincón en línea, nos dedicamos a hacer coincidir patas y corazones. ¿Por qué unirte? 
-              Porque cada cola feliz merece una historia de amor única. Únete a nosotros para darle a tu perro 
-              la oportunidad de conocer a su compañero peludo perfecto. Descubre conexiones auténticas y momentos 
-              adorables. ¡La búsqueda del amor de cuatro patas comienza aquí! </p>
-        </div>
-        <div class="col-lg-8 col-md-12">
-            <div class="row">
-                <div class="col-md-4 mb-5">
-                    <h5 class="text-primary mb-4">Siguenos</h5>
-                    <p><i class="fa fa-envelope mr-2"></i>doggylovy.contact@gmail.com</p>
-                    <div class="d-flex justify-content-start mt-4">
-                      <!--Agregar links a las páginas-->
-                        <a class="btn btn-outline-light rounded-circle text-center mr-2 px-0" style="width: 36px; height: 36px;" href="#"><i class="fab fa-twitter"></i></a>
-                        <a class="btn btn-outline-light rounded-circle text-center mr-2 px-0" style="width: 36px; height: 36px;" href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a class="btn btn-outline-light rounded-circle text-center mr-2 px-0" style="width: 36px; height: 36px;" href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-                <div class="col-md-4 mb-5">
-                    <h5 class="text-primary mb-4">Popular Links</h5>
-                    <div class="d-flex flex-column justify-content-start">
-                        <!--AGREGAR LOS LINKS DE LAS PÁGINAS QUE FALTAN-->
-                        <a class="text-white mb-2" href="{{ url_for('inicio.index') }}"><i class="fa fa-angle-right mr-2"></i>Inicio</a>
-                        <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Servicios</a>
-                        <a class="text-white" href="#"><i class="fa fa-angle-right mr-2"></i>Contacto</a>
-                        <a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Sobre nosotros</a>
-                        
-                    </div>
-                </div>
-                <div class="col-md-4 mb-5">
-                    <h5 class="text-primary mb-4">Boletin de noticias</h5>
-                    <form action="">
-                        <div class="form-group">
-                            <input type="text" class="form-control border-0" placeholder="Nombre" required="required" />
+    <!-- Carrusel de imagenes INICIO -->
+    <div class="container-fluid p-0">
+        <div id="header-carousel" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                <img class="w-100" src = "{{ url_for('static', filename='img/carousel-1.jpg')}}"alt="Image">           
+                    <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                        <div class="p-3" style="max-width: 900px;">
+                            <h3 class="text-white mb-3 d-none d-sm-block">Porque todos merecen encontrar </h3>
+                            <h1 class="display-3 text-white mb-3"> a su compañero </h1>
+                            <h5 class="text-white mb-3 d-none d-sm-block">peludo perfecto.</h5>
                         </div>
-                        <div class="form-group">
-                            <input type="email" class="form-control border-0" placeholder="Correo" required="required" />
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img class="w-100" src = "{{ url_for('static', filename='img/carousel-2.jpg')}}"alt="Image">
+                    <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                        <div class="p-3" style="max-width: 900px;">
+                            <h3 class="text-white mb-3 d-none d-sm-block">Conectamos </h3>
+                            <h1 class="display-3 text-white mb-3"> corazones peludos </h1>
+                            <h5 class="text-white mb-3 d-none d-sm-block">en busca de amor.</h5>
                         </div>
-                        <div>
-                            <button class="btn btn-lg btn-primary btn-block border-0" type="submit">Suscribirme</button>
+                    </div>
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#header-carousel" data-slide="prev">
+                <div class="btn btn-primary rounded" style="width: 45px; height: 45px;">
+                    <span class="carousel-control-prev-icon mb-n2"></span>
+                </div>
+            </a>
+            <a class="carousel-control-next" href="#header-carousel" data-slide="next">
+                <div class="btn btn-primary rounded" style="width: 45px; height: 45px;">
+                    <span class="carousel-control-next-icon mb-n2"></span>
+                </div>
+            </a>
+        </div>
+    </div>
+    <!-- Carrusel imagenes FIN -->
+
+    <!-- CUERPO -->
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-5">
+                    <img class="img-fluid w-100" src= "{{ url_for('static', filename='img/Perro_Dueño.jpg')}}" alt=""> 
+                </div>
+                <div class="col-lg-7 py-5 py-lg-0 px-3 px-lg-5">
+                    <h4 class="text-secondary mb-3">¿Por qué escogernos?</h4>
+                    <h1 class="display-4 mb-4"><span class="text-primary">Aprendiendo, Creando, </span> Innovando en la Web del Mañana</h1>
+                    <p class="mb-4">En cada línea de código, en cada diseño creativo, y en cada idea compartida. 
+                    Listos para inspirar, aprender. Estamos unidos por nuestra pasión por la innovación y el conocimiento, 
+                    y juntos, estamos creando un espacio digital lleno de oportunidades. Con cada desafío que enfrentamos, 
+                    crecemos y evolucionamos. ¡Acompáñanos en este emocionante viaje!"</p>
+                </div>
+            </div>
+        </div>
+
+    <!-- Testimonios INICIO -->
+    <div class="container-fluid bg-light my-5 p-0 py-5">
+        <div class="container p-0 py-5">
+            <div class="d-flex flex-column text-center mb-5">
+                <h4 class="text-secondary mb-3">Testimonios</h4>
+                <h1 class="display-4 m-0">Nuestros Clientes <span class="text-primary">Dicen</span></h1>
+            </div>
+            <div class="owl-carousel testimonial-carousel">
+                <div class="bg-white mx-3 p-4">
+                    <div class="d-flex align-items-end mb-3 mt-n4 ml-n4">
+                        <img class="img-fluid" src = "{{ url_for('static', filename='img/team-1.jpg')}}"style="width: 80px; height: 80px;" alt="">
+                        <div class="ml-3">
+                            <h5>Sofia</h5>
+                            <i>25</i>
                         </div>
-                    </form>
+                    </div>
+                    <p class="m-0">¡Hola a todos! Soy un amante de los animales que ha decidido darle un giro emocionante a la vida de mi querida mascota. 
+                    Hace poco me uní a esta increíble comunidad que tiene como objetivo principal encontrarle la pareja perfecta a nuestros peludos compañeros.</p>
+                </div>
+                <div class="bg-white mx-3 p-4">
+                    <div class="d-flex align-items-end mb-3 mt-n4 ml-n4">
+                        <img class="img-fluid" src = "{{ url_for('static', filename='img/testimonial-3.jpg')}}"style="width: 80px; height: 80px;" alt="">
+                        <div class="ml-3">
+                            <h5>Max</h5>
+                            <i>30</i>
+                        </div>
+                    </div>
+                    <p class="m-0">Lo sorprendente es ver cómo las conexiones entre mascotas pueden ser tan auténticas y 
+                    especiales como las nuestras. He tenido la oportunidad de interactuar con dueños y sus mascotas, 
+                    compartiendo anécdotas, fotos y, por supuesto, la esperanza de encontrar a esa pareja ideal para Lola.</p>
+                </div>
+                <div class="bg-white mx-3 p-4">
+                    <div class="d-flex align-items-end mb-3 mt-n4 ml-n4">
+                    <img class="img-fluid" src = "{{ url_for('static', filename='img/user.jpg')}}"style="width: 80px; height: 80px;" alt="">
+                        <div class="ml-3">
+                            <h5>Alejandro</h5>
+                            <i>28</i>
+                        </div>
+                    </div>
+                    <p class="m-0">¡Hola a todos! Me llamo Alejandro, tengo 28 años y quiero compartirles mi experiencia emocionante 
+                    al usar esta increíble plataforma para encontrarle pareja a mi adorable mascota.
+                    Mi compañera peluda, Luna, es una gatita juguetona y llena de curiosidad. 
+                    Creo que ha llegado el momento de que encuentre a alguien especial para compartir travesuras y momentos cariñosos. 
+                    Al unirme a esta comunidad, he descubierto un mundo lleno de perfiles fascinantes y dueños que comparten el mismo amor apasionado por sus mascotas.</p>
+                </div>
+                <div class="bg-white mx-3 p-4">
+                    <div class="d-flex align-items-end mb-3 mt-n4 ml-n4">
+                        <img class="img-fluid" src = "{{ url_for('static', filename='img/team-2.jpg')}}"style="width: 80px; height: 80px;" alt="">
+                        <div class="ml-3">
+                            <h5>Marta</h5>
+                            <i>30</i>
+                        </div>
+                    </div>
+                    <p class="m-0">La idea de que Rocky pueda encontrar a alguien especial que comparta su entusiasmo por los juegos y 
+                    los paseos me llena de emoción. Cada día es una nueva oportunidad para descubrir a la pareja perfecta para mi leal amigo de cuatro patas. 
+                    Si eres un amante de los animales como yo, te invito a unirte a esta comunidad única de emparejamiento para mascotas.</p>
                 </div>
             </div>
         </div>
     </div>
-  </div>
-  <div class="container-fluid text-white py-4 px-sm-3 px-md-5" style="background: #111111;">
-    <div class="row">
-        <div class="col-md-6 text-center text-md-left mb-3 mb-md-0">
-            <p class="m-0 text-white">
-                &copy; <a class="text-white font-weight-bold" href="#">DoggyLovy</a>. Todos los derechos reservados. Diseñado por equipo NSMON
-                <a class="text-white font-weight-bold" href="https://htmlcodex.com"></a>
-            </p>
+    <!-- Testimonios FIN -->
+
+    <!-- Otro tipo de contacto INICIO -->
+    <div class="container-fluid bg-dark text-white mt-5 py-5 px-sm-3 px-md-5">
+        <div class="row pt-5">
+            <div class="col-lg-4 col-md-12 mb-5">
+                <h1 class="mb-3 display-5 text-capitalize text-white"><span class="text-primary">Doggy</span>Lovy</h1>
+                <p class="m-0">¿Tu perro merece encontrar el amor verdadero? ¡Entonces esta página es para ti! 
+                En nuestro rincón en línea, nos dedicamos a hacer coincidir patas y corazones. ¿Por qué unirte? 
+                Porque cada cola feliz merece una historia de amor única. Únete a nosotros para darle a tu perro 
+                la oportunidad de conocer a su compañero peludo perfecto. Descubre conexiones auténticas y momentos 
+                adorables. ¡La búsqueda del amor de cuatro patas comienza aquí! </p>
+            </div>
+            <div class="col-lg-8 col-md-12">
+                <div class="row">
+                    <div class="col-md-4 mb-5">
+                        <h5 class="text-primary mb-4">Siguenos</h5>
+                        <p><i class="fa fa-envelope mr-2"></i>doggylovy.contact@gmail.com</p>
+                        <div class="d-flex justify-content-start mt-4">
+                            <a class="btn btn-outline-light rounded-circle text-center mr-2 px-0" style="width: 36px; height: 36px;" href="https://es-la.facebook.com/"><i class="fab fa-twitter"></i></a>
+                            <a class="btn btn-outline-light rounded-circle text-center mr-2 px-0" style="width: 36px; height: 36px;" href="https://es-la.facebook.com/"><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-outline-light rounded-circle text-center mr-2 px-0" style="width: 36px; height: 36px;" href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-5">
+                        <h5 class="text-primary mb-4">Popular Links</h5>
+                        <div class="d-flex flex-column justify-content-start">
+                            <a class="text-white mb-2" href="{{ url_for('inicio.index') }}"><i class="fa fa-angle-right mr-2"></i>Inicio</a>
+                            <a class="text-white mb-2" href="{{ url_for('service.service') }}"><i class="fa fa-angle-right mr-2"></i>Servicios</a>
+                            <a class="text-white" href="{{ url_for('service.service') }}"><i class="fa fa-angle-right mr-2"></i>Contacto</a> 
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-5">
+                        <h5 class="text-primary mb-4">Boletin de noticias</h5>
+                        <form action="">
+                            <div class="form-group">
+                                <input type="text" class="form-control border-0" placeholder="Nombre" required="required" />
+                            </div>
+                            <div class="form-group">
+                                <input type="email" class="form-control border-0" placeholder="Correo" required="required" />
+                            </div>
+                            <div>
+                                <button class="btn btn-lg btn-primary btn-block border-0" type="submit">Suscribirme</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-  </div>
-  <!-- Footer End -->
+    <div class="container-fluid text-white py-4 px-sm-3 px-md-5" style="background: #111111;">
+        <div class="row">
+            <div class="col-md-6 text-center text-md-left mb-3 mb-md-0">
+                <p class="m-0 text-white">
+                    &copy; <a class="text-white font-weight-bold" href="#">DoggyLovy</a>. Todos los derechos reservados. Diseñado por equipo NSMON
+                    <a class="text-white font-weight-bold" href="https://htmlcodex.com"></a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <!-- Otro tipo de contacto FIN -->
 
 
-  <!-- Back to Top -->
-  <a href="#" class="btn btn-lg btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
 
 
-  <!-- JavaScript Libraries -->
-  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-  <link href="{{ url_for('static', filename='lib/flaticon/font/flaticon.css') }}" rel="stylesheet"/> 
-  <script src="{{ url_for('static', filename='lib/easing/easing.min.js') }}"></script>
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <link href="{{ url_for('static', filename='lib/flaticon/font/flaticon.css') }}" rel="stylesheet"/> 
+    <script src="{{ url_for('static', filename='lib/easing/easing.min.js') }}"></script>
 
-  <script src="{{ url_for('static', filename='lib/owlcarousel/owl.carousel.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='lib/tempusdominus/js/moment.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='lib/tempusdominus/js/moment-timezone.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js') }}"></script>
-
-
-  <!-- Contact Javascript File -->
-  <script src="{{ url_for('static', filename='mail/jqBootstrapValidation.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='mail/contact.js') }}"></script>
+    <script src="{{ url_for('static', filename='lib/owlcarousel/owl.carousel.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='lib/tempusdominus/js/moment.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='lib/tempusdominus/js/moment-timezone.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js') }}"></script>
 
 
-  <!-- Template Javascript -->
-  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <!-- Contact Javascript File -->
+    <script src="{{ url_for('static', filename='mail/jqBootstrapValidation.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='mail/contact.js') }}"></script>
+
+
+    <!-- Template Javascript -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 
 {% endblock %}

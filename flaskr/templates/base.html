@@ -29,14 +29,14 @@
 
 <section class="content">
   <header>
+
   <!-- Topbar Start -->
     <div class="container-fluid">
       <div class="row bg-secondary py-2 px-lg-5">
           <div class="col-lg-6 text-center text-lg-left mb-2 mb-lg-0">
               <div class="d-inline-flex align-items-center">
-                  <a class="text-white px-3" href="">Ayuda</a>
+                  <a class="text-white px-3" href="{{ url_for('tyc.tyc') }}">Terminos Y Condiciones</a>
                   <span class="text-white">|</span>
-                  <!--La linea de aqui abajo es la que hace que funcione OLVIDE MI CONTRASEÑA-->
                   <a class="text-white pl-3" href="{{ url_for('support.support') }}">Soporte</a>
               </div>
           </div>
@@ -95,20 +95,12 @@
                       {% else %}
                         <a href="{{ url_for('profile.myProfile') }}" class="nav-item nav-link"><span>Mascota: Ninguna</span></a>
                       {% endif %}
-                      <a href="{{ url_for('chat.chatsList') }}" class="nav-item nav-link"><span>Lista de chats</span></a>
-                      <!--Faltan estas-->
-                      <!-- <a href="service.html" class="nav-item nav-link">Servicio</a>
-                      <a href="contact.html" class="nav-item nav-link">Contacto</a>
-                      <a href="about.html" class="nav-item nav-link">Sobre Nosotros</a>-->
-                      
+                      <a href="{{ url_for('chat.chatsList') }}" class="nav-item nav-link"><span>Lista de chats</span></a>                     
                   {% else %}
                     <!--Agregar links que direccion de las páginas-->
                     <a href="{{ url_for('inicio.index') }}" class="nav-item nav-link active">Inicio</a>
-
-                    <!--Faltan estas-->
-                    <a href="service.html" class="nav-item nav-link">Servicio</a>
-                    <a href="contact.html" class="nav-item nav-link">Contacto</a>
-                    <a href="about.html" class="nav-item nav-link">Sobre Nosotros</a>               
+                    <a href="{{ url_for('service.service') }}" class="nav-item nav-link">Servicio</a>                  
+                    <a href="{{ url_for('contact.contact') }}" class="nav-item nav-link">Contacto</a>              
                   {% endif %}              
               </div>
 
@@ -131,3 +123,4 @@
   {% endfor %}
   {% block content %}{% endblock %}
 </section>
+
