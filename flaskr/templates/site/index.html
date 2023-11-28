@@ -9,21 +9,6 @@
 {% endblock %}
 
 {% block content %}
-{% if g.user and not g.user_verified %}
-    <div class="container my-5">
-      <div class="row justify-content-center">
-        <div class="col-md-8 text-center">
-          <h2 class="text-danger">Tu cuenta aún no ha sido verificada</h2>
-          <p class="lead">Por favor, verifica tu cuenta haciendo clic en el enlace que se envió a tu correo electrónico.</p>
-          <p class="lead">Si no has recibido el correo de verificación, revisa tu carpeta de correo no deseado o solicita otro enlace.</p>
-          <form action="{{ url_for('auth.request_verification') }}" method="post">
-            <button type="submit" class="btn btn-primary">Solicitar Verificación</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  {% endif %}
-  
   <!-- Carousel Start -->
   <div class="container-fluid p-0">
     <div id="header-carousel" class="carousel slide" data-ride="carousel">
