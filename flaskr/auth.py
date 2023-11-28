@@ -1,6 +1,7 @@
 import functools
 import smtplib
 import yagmail
+import time
 
 from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
@@ -136,6 +137,7 @@ def load_logged_in_user():
 
     if user_id is None:
         g.user = None
+        g.user_verified = False
     else:
         g.user = session.get('user_name')
         g.user_id = user_id
@@ -157,23 +159,43 @@ def login_required(view):
 
     return wrapped_view
 
+@bp.route('/verify_account/<string:id>', methods=('GET',))
+def verify_account(id):
+    connDB = db.get_db()
+    cur = connDB.cursor()
+
+    try:
+        cur.execute("UPDATE usuario SET valid_cuenta = true WHERE id_usuario = %s", (id,))
+        connDB.commit()
+        flash('¡Cuenta verificada con éxito!')
+    except Exception as e:
+        print(e)
+        flash('Ocurrió un error al verificar la cuenta. Intenta de nuevo más tarde.')
+    finally:
+        cur.close()
+        db.close_db()
+
+    return redirect(url_for('index'))
+
 def enviar_correo(email, usuario):
     passToken = 'skhxvywqburocwjv'
     emailPage = 'doggylovy.contact@gmail.com'
     
-    yag = yagmail.SMTP(user = emailPage, password = passToken)
+    yag = yagmail.SMTP(user=emailPage, password=passToken)
     
-    username= usuario
+    username = usuario
     destinatario = email
-    asunto = 'Confirmacion de creacion de cuenta'
-    html= """<!DOCTYPE html>
+    asunto = 'Confirmación de creación de cuenta'
+    verification_link = f'http://127.0.0.1:5000/auth/verify_account/{username}'  # Ajusta la URL base según tu configuración
+    html = f"""<!DOCTYPE html>
             <body>
                 <h1>¡Gracias por registrarte!</h1>
                 <p>Te damos la bienvenida a nuestro sitio. Estamos emocionados de tenerte como parte de nuestra comunidad.</p>
+                <p>Para verificar tu cuenta, haz clic en el siguiente enlace: <a href="{verification_link}">Verificar cuenta</a></p>
             </body>
             </html>
         """
-    mensaje = 'Hola ' + username + ' tu cuenta fue creada con exito!!' + '\n' + html
+    mensaje = 'Hola ' + username + ', tu cuenta fue creada con éxito!!' + '\n' + html
     yag.send(destinatario, asunto, mensaje)
     yag.close()
 

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificación de cuenta</title>
+</head>
+<body>
+    <div>
+        <h2>Verificación de cuenta</h2>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+        <p>¡Gracias por registrarte! Tu cuenta ha sido creada con éxito.</p>
+        <p>Por favor, haz clic en el botón de abajo para verificar tu cuenta:</p>
+        <form method="post" action="">
+            <input type="submit" value="Verificar cuenta">
+        </form>
+    </div>
+</body>
+</html>
