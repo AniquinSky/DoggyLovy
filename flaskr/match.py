@@ -2,7 +2,7 @@ from flask import (
     Blueprint, flash, g, redirect, render_template, request, session, url_for
 )
 
-from flaskr.profile import getUserPets, getUserAmountOfPetsForMatch
+from flaskr.profile import getUserPetsForMatch, getUserAmountOfPetsForMatch
 from flaskr.pets import getPetsForMatch
 
 bp = Blueprint('match', __name__, url_prefix='/match')
@@ -19,11 +19,11 @@ def match():
     amount_of_pets = getUserAmountOfPetsForMatch()
     # Si solo tiene una se manda al usuario directo al match
     if amount_of_pets == 1:
-        session['current_pet_id'] = getUserPets()[0]
-        return render_template('match/match.html', pets = getPetsForMatch())
+        only_pet = getUserPetsForMatch()[0]
+        return redirect(url_for('pets.match.petSelected', petId = only_pet[0], petName = only_pet[1] ))
     # Si tiene mas de una, selecciona la mascota para el match
     elif amount_of_pets > 1:
-        return render_template('match/select_pet_for_match.html', pets = getUserPets())
+        return render_template('match/select_pet_for_match.html', pets = getUserPetsForMatch())
     # Si no tiene mascotas registradas se redirige al registro de mascotas
     elif amount_of_pets == 0:
         flash('Antes de acceder al match debe registrar una mascota.')
