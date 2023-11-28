@@ -1,7 +1,7 @@
 import os
 
 from flask import Flask
-from . import db, auth, pets, inicio, profile, adoption, match, update_pets, chat, recovery
+from . import db, auth, pets, inicio, profile, adoption, match, update_pets, chat, recovery, support
 from flaskr.sockets import socketio as socketio_events
 
 def create_app(test_config=None):
@@ -40,6 +40,7 @@ def create_app(test_config=None):
     app.register_blueprint(adoption.bp)
     app.register_blueprint(chat.bp)
     app.register_blueprint(recovery.bp)
+    app.register_blueprint(support.bp)
     app.add_url_rule('/', endpoint='index')
     socketio_events.init_app(app, cors_allowed_origins="*")
     return app
