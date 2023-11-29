@@ -20,7 +20,7 @@
                     <button type="submit" onclick="sendValorationSignal('like', '{{ pet[0] }}')" class="btn btn-success btn-sm">Like</button>
                     <button type="submit" onclick="sendValorationSignal('dislike', '{{ pet[0] }}')" class="btn btn-danger btn-sm">Dislike</button>
                 </div>
-                <a class="font-weight-bold" style="width: 100%;" class="font-weight-bold" href="{{ url_for('chat.chatRoom', other_user_id=pet[8]) }}">Entablar chat con el dueño.</a>
+                <a class="font-weight-bold" style="width: 100%;" href="{{ url_for('chat.chatRoom', other_user_id=pet[8]) }}">Entablar chat con el dueño.</a>
             </div>
         </div>
         {% endfor %}
