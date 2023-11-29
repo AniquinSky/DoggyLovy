@@ -26,7 +26,7 @@ def match():
         return render_template('match/select_pet_for_match.html', pets = getUserPetsForMatch())
     # Si no tiene mascotas registradas se redirige al registro de mascotas
     elif amount_of_pets == 0:
-        flash('Antes de acceder al match debe registrar una mascota.')
+        #flash('Antes de acceder al match debe registrar una mascota.')
         return redirect(url_for('pets.registerPets'))
     else:
         flash('Ocurrio un erros inesperado. Intentelo de nuevo mas tarde.')
